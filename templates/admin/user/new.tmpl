@@ -1,0 +1,9 @@
+{{/* Adapted from Gitea templates/admin/user/new.tmpl (MIT), pinned baseline. */}}
+<div class="admin-setting-content"><h4 class="ui top attached header">创建用户</h4><div class="ui attached segment">
+<form class="ui form" data-api="/api/v1/admin/users" data-next="/-/admin/users">
+<div class="field"><label>认证来源</label><p>本地（LDAP 用户请通过 LDAP 同步或首次登录创建）</p></div>
+<div class="required field"><label for="new-user-name">用户名</label><input id="new-user-name" name="Name" required autocomplete="off"><p class="help">使用字母、数字、点、下划线或连字符。</p></div>
+<div class="required field"><label for="new-user-password">密码</label><input id="new-user-password" name="Password" type="password" minlength="12" maxlength="1024" required autocomplete="new-password"><p class="help">密码至少 12 字节。</p></div>
+<div class="field"><label class="check"><input name="Admin" type="checkbox">全站管理员</label></div><input type="hidden" name="Active" data-bool value="true">
+<button class="ui primary button">创建用户</button><a class="ui button" href="/-/admin/users">取消</a>
+</form></div></div>

@@ -1,0 +1,20 @@
+<div class="table-scroll">
+<table class="ui unstackable table revision-history">
+<thead><tr><th>详情</th><th>修订号</th><th>动作</th><th>作者</th><th>时间</th><th>消息</th></tr></thead>
+<tbody>{{range .Logs}}
+<tr data-history-row>
+<td><button type="button" class="history-toggle" aria-expanded="false" aria-controls="revision-detail-{{.Revision}}" aria-label="展开或收起 r{{.Revision}} 详情"><svg class="svg" width="16" height="16" aria-hidden="true"><use href="/assets/img/octicons.svg#chevron-right"></use></svg></button></td>
+<td><a href="{{$.Link "tree" "" .Revision}}">r{{.Revision}}</a></td>
+<td><span class="history-actions">{{range historyActions .}}<span class="history-action" data-action="{{.Code}}" title="{{.Label}}" aria-label="{{.Label}}">{{.Code}}</span>{{else}}—{{end}}</span></td>
+<td>{{if .Author}}{{.Author}}{{else}}—{{end}}</td>
+<td><time datetime="{{.Date}}" title="{{.Date}}">{{$.RevisionTime .Date}}</time></td>
+<td class="history-summary">{{historySummary .Message}}</td>
+</tr>
+<tr id="revision-detail-{{.Revision}}" class="history-detail" hidden><td colspan="6"><div class="history-detail-content">
+<p class="commit-message">{{if .Message}}{{.Message}}{{else}}无提交消息{{end}}</p>
+<table class="ui unstackable table history-paths"><thead><tr><th>路径</th><th>动作</th><th>复制来源路径</th><th>来源修订</th></tr></thead><tbody>
+{{range .Paths}}<tr><td><code>{{.Path}}</code></td><td>{{with historyAction .Action}}<span class="history-action" data-action="{{.Code}}" title="{{.Label}}" aria-label="{{.Label}}">{{.Code}}</span>{{end}}</td><td>{{if .CopyFromPath}}<code>{{.CopyFromPath}}</code>{{end}}</td><td>{{if .CopyFromPath}}r{{.CopyFromRevision}}{{end}}</td></tr>{{else}}<tr><td colspan="4">暂无修订条目</td></tr>{{end}}
+</tbody></table></div></td></tr>
+{{else}}<tr><td colspan="6">暂无修订记录</td></tr>{{end}}</tbody>
+</table></div>
+

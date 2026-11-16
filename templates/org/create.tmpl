@@ -1,0 +1,13 @@
+{{/* Adapted from Gitea templates/org/create.tmpl (MIT). Public visibility and Git permissions are unavailable in SVNova. */}}
+<div role="main" aria-label="创建组织" class="page-content organization new org">
+ <div class="ui container medium-width">
+  <h3 class="ui top attached header">创建组织</h3>
+  <div class="ui attached segment">
+   <form class="ui form left-right-form" data-api="/api/v1/organizations" data-next="/-/admin/orgs">
+    <div class="inline required field"><label for="org_name">组织名称</label><div class="inline-right"><input id="org_name" name="Name" autofocus required maxlength="80" pattern="[a-zA-Z0-9][a-zA-Z0-9_.\-]{0,79}"><p class="muted">组织名称使用字母、数字、点、下划线或连字符。</p></div></div>
+    <div class="inline field static-field"><label>可见性</label><div class="inline-right">私有（仅组织成员可访问）</div></div>
+    <div class="inline field"><label></label><button class="ui primary button">创建组织</button></div>
+   </form>
+  </div>
+ </div>
+</div>

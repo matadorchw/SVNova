@@ -1,0 +1,6 @@
+{{/* Gitea 146cc3eec57174711eac0e0a0c7b38670c6e3922: templates/user/auth/signin_inner.tmpl. MIT; SVN adaptation, see docs/upstream/reuse-manifest.md. */}}
+{{template "base/alert" .}}
+<h4 class="ui top attached header center">登录 {{.SiteName}}</h4>
+<div class="ui attached segment">
+<form class="ui form" method="post" action="/user/login"><label>认证源<select name="source"><option value="local">本地账户</option>{{if .LDAP}}<option value="ldap">LDAP</option>{{end}}</select></label><label>用户名<input name="name" required autocomplete="username" autofocus></label><label>密码<input type="password" name="password" required autocomplete="current-password"></label><button class="ui primary button" type="submit">登录</button></form>
+</div>

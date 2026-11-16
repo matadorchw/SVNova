@@ -1,0 +1,13 @@
+{{/* Adapted from Gitea user/settings/organization.tmpl (MIT). */}}
+<div class="flex-container user settings organization">
+ {{template "user/settings/navbar" .}}
+ <div class="flex-container-main user-setting-content">
+  <h4 class="ui top attached header settings-org-header"><span>管理组织</span>{{if .User.Admin}}<a class="ui primary button action-small" href="/org/create">创建新的组织</a>{{end}}</h4>
+  <div class="ui attached segment">{{range .Organizations}}<div class="settings-org-row"><a class="settings-org-name" href="{{orgLink .Name}}"><img loading="lazy" class="avatar" src="/avatars/organizations/{{.ID}}?size=56" width="28" height="28" alt=""><strong>{{.DisplayName}}</strong></a><form data-leave-organization="{{.DisplayName}}" data-api="/api/v1/organizations/{{.ID}}/leave" data-next="/user/settings/organization"><button class="ui basic red button action-small" type="submit">离开组织</button></form></div>{{else}}<p>暂无所属组织。</p>{{end}}</div>
+ </div>
+</div>
+<dialog id="leave-organization-dialog" class="leave-organization-dialog" aria-labelledby="leave-organization-title">
+ <div class="leave-organization-heading" id="leave-organization-title">离开组织</div>
+ <div class="leave-organization-content">离开 <span data-organization-name></span>？</div>
+ <div class="leave-organization-actions"><button class="ui button" type="button" data-cancel>取消操作</button><button class="ui primary button" type="button" data-accept>确认操作</button></div>
+</dialog>

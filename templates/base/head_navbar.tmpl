@@ -1,0 +1,15 @@
+{{/* Gitea 146cc3eec57174711eac0e0a0c7b38670c6e3922: templates/base/head_navbar.tmpl. MIT; SVN adaptation, see docs/upstream/reuse-manifest.md. */}}
+<nav id="navbar" aria-label="主导航"><div class="navbar-left"><a class="item" id="navbar-logo" href="/" aria-label="SVNova 首页"><img src="/assets/logo.svg" width="30" height="30" alt=""></a><a class="item activity-nav-link" href="/activity"{{if eq .Page "activity-trend"}} aria-current="page"{{end}}>活动趋势</a><a class="item activity-nav-link" href="/tasks"{{if eq .Page "task-center"}} aria-current="page"{{end}}>任务</a><div class="navbar-mobile-right only-mobile"><button class="item ui icon mini button" id="navbar-expand-toggle" aria-label="展开导航" aria-expanded="false"><svg width="16" height="16" aria-hidden="true"><use href="/assets/img/octicons.svg#three-bars"></use></svg></button></div></div><div class="navbar-right">
+ {{if .CanMigrate}}<details class="ui dropdown jump item nav-dropdown"><summary class="flex-text-block" aria-label="创建"><svg width="16" height="16" aria-hidden="true"><use href="/assets/img/octicons.svg#plus"></use></svg><svg width="14" height="14" aria-hidden="true"><use href="/assets/img/octicons.svg#triangle-down"></use></svg></summary><div class="menu"><a class="item" href="/repo/migrate"><svg width="16" height="16" aria-hidden="true"><use href="/assets/img/octicons.svg#repo-push"></use></svg>迁移仓库</a>{{if .User.Admin}}<a class="item" href="/org/create"><svg width="16" height="16" aria-hidden="true"><use href="/assets/img/octicons.svg#organization"></use></svg>创建组织</a>{{end}}</div></details>{{end}}
+ <details class="ui dropdown jump item nav-dropdown"><summary class="text" aria-label="账户菜单"><span class="navbar-avatar"><img loading="lazy" class="avatar" src="/avatars/current?size=48" width="24" height="24" alt="">{{if .User.Admin}}<svg class="navbar-admin-badge" width="16" height="16" aria-label="管理员"><use href="/assets/img/octicons.svg#shield-check"></use></svg>{{end}}</span><span class="only-mobile">{{.User.Name}}</span><svg width="14" height="14" aria-hidden="true"><use href="/assets/img/octicons.svg#triangle-down"></use></svg></summary>
+  <div class="menu user-menu">
+   <div class="header">已登录用户 <strong>{{.User.Name}}</strong></div>
+   <div class="divider"></div>
+   <a class="item" href="/user/profile">{{template "shared/menu_icon" "person"}}<span>个人信息</span></a>
+   <a class="item" href="/user/settings">{{template "shared/menu_icon" "tools"}}<span>设置</span></a>
+   {{if .User.Admin}}<div class="divider"></div><a class="item" href="/-/admin">{{template "shared/menu_icon" "server"}}<span>管理后台</span></a>{{end}}
+   <div class="divider"></div>
+   <form data-api="/user/logout" data-next="/user/login"><button class="item" type="submit">{{template "shared/menu_icon" "sign-out"}}<span>退出</span></button></form>
+  </div>
+ </details>
+</div></nav>

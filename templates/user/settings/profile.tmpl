@@ -1,0 +1,10 @@
+{{/* Adapted from Gitea templates/user/settings/profile.tmpl (MIT); existing account information only. */}}
+<div class="flex-container user settings profile">
+ {{template "user/settings/navbar" .}}
+ <div class="flex-container-main user-setting-content">
+  <h4 class="ui top attached header">个人信息</h4>
+  <div class="ui attached segment">
+   <div class="ui form"><div class="field"><label>头像</label><img loading="lazy" class="avatar" src="/avatars/current?size=128" width="64" height="64" alt=""></div><div class="field"><label>用户名</label><p>{{.User.Name}}</p></div><div class="field"><label>显示名称</label><p>{{if .User.DisplayName}}{{.User.DisplayName}}{{else}}{{.User.Name}}{{end}}</p></div><div class="field"><label>电子邮箱</label><p>{{if .User.Email}}{{.User.Email}}{{else}}未设置{{end}}</p></div><div class="field"><label>认证方式</label><p>{{if .User.LDAPAccount}}LDAP{{else}}本地账户{{end}}</p></div></div>
+  </div>
+ </div>
+</div>

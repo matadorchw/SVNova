@@ -1,0 +1,9 @@
+{{/* Adapted from Gitea templates/base/paginate.tmpl (MIT), pinned baseline. */}}
+{{if gt .Pages 1}}
+<nav class="center page buttons list-pagination{{if .Compact}} ui bottom attached segment dashboard-pagination dashboard-repo-pagination{{end}}" aria-label="{{if .Label}}{{.Label}}{{else}}列表分页{{end}}"><div class="ui borderless pagination menu{{if .Compact}} narrow dashboard-compact-pager{{end}}">
+<a class="item navigation{{if not .First}} disabled{{end}}" {{if .First}}href="{{.First}}"{{else}}aria-disabled="true"{{end}} aria-label="首页">{{template "shared/menu_icon" "double-chevron-left"}}<span class="navigation_label" {{if .Compact}}hidden{{end}}>首页</span></a>
+<a class="item navigation{{if not .Previous}} disabled{{end}}" {{if .Previous}}href="{{.Previous}}"{{else}}aria-disabled="true"{{end}} aria-label="上一页">{{template "shared/menu_icon" "chevron-left"}}<span class="navigation_label" {{if .Compact}}hidden{{end}}>上一页</span></a>
+{{if .Compact}}<span class="active item" aria-current="page">{{.Page}}</span>{{else}}{{range .Numbers}}{{if eq .Number -1}}<span class="disabled item" aria-hidden="true">…</span>{{else}}<a class="item{{if .Current}} active{{end}}" {{if .Current}}aria-current="page"{{else}}href="{{.URL}}"{{end}} aria-label="第 {{.Number}} 页">{{.Number}}</a>{{end}}{{end}}{{end}}
+<a class="item navigation{{if not .Next}} disabled{{end}}" {{if .Next}}href="{{.Next}}"{{else}}aria-disabled="true"{{end}} aria-label="下一页"><span class="navigation_label" {{if .Compact}}hidden{{end}}>下一页</span>{{template "shared/menu_icon" "chevron-right"}}</a>
+<a class="item navigation{{if not .Last}} disabled{{end}}" {{if .Last}}href="{{.Last}}"{{else}}aria-disabled="true"{{end}} aria-label="末页"><span class="navigation_label" {{if .Compact}}hidden{{end}}>末页</span>{{template "shared/menu_icon" "double-chevron-right"}}</a>
+</div></nav>{{end}}

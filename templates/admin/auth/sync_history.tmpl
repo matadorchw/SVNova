@@ -1,0 +1,6 @@
+{{/* Sync history behavior references wwSecArcana; Gitea attached-panel layout and Octicons retained. */}}
+<h4 class="ui top attached header auth-list-header"><span>LDAP · 同步历史</span><div class="auth-history-toolbar"><a class="action-icon-button" data-refresh-action href="?page={{.AuthHistory.Page}}&amp;size={{.AuthHistory.Size}}" title="刷新同步历史" aria-label="刷新同步历史">{{template "shared/menu_icon" "sync"}}</a><a class="ui button action-small" href="/-/admin/ldap">返回 LDAP 配置</a></div></h4>
+<div class="ui attached segment table-scroll"><table class="ui unstackable table"><thead><tr><th>ID</th><th>触发方式</th><th>操作人</th><th>开始时间</th><th>耗时</th><th>新增</th><th>更新</th><th>停用</th><th>跳过本地</th><th>结果</th><th>说明</th></tr></thead><tbody>
+{{range .AuthHistory.Items}}<tr><td>#{{.ID}}</td><td>{{.TriggerText}}</td><td>{{if .ActorName}}{{.ActorName}}{{else}}系统{{end}}</td><td>{{.StartedText}}</td><td>{{.DurationText}}</td><td>{{.CreatedUsers}}</td><td>{{.UpdatedUsers}}</td><td>{{.DisabledUsers}}</td><td>{{.SkippedLocalCount}}</td><td>{{.StatusText}}</td><td>{{.FailureText}}{{if .SkippedNames}}<span>已跳过：{{range .SkippedNames}}<code>{{.}}</code> {{end}}</span>{{end}}</td></tr>{{else}}<tr><td colspan="11">暂无同步历史。此前同步不补录，新的同步开始后会在此记录。</td></tr>{{end}}
+</tbody></table></div>
+{{template "shared/pagination" .AuthHistory.Pagination}}

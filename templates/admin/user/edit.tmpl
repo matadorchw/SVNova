@@ -1,0 +1,14 @@
+{{/* Adapted from Gitea templates/admin/user/edit.tmpl (MIT), pinned baseline; existing account flags only. */}}
+<div class="admin-setting-content"><h4 class="ui top attached header">编辑用户 — {{.EditUser.Name}}</h4><div class="ui attached segment">
+<form class="ui form" data-api="/api/v1/admin/users/{{.EditUser.ID}}" data-next="/-/admin/users">
+<dl class="admin-user-properties"><dt>用户名</dt><dd>{{.EditUser.Name}}</dd><dt>认证来源</dt><dd>{{if .EditUser.LDAPAccount}}LDAP{{else}}本地{{end}}</dd><dt>电子邮箱</dt><dd>{{if .EditUser.Email}}{{.EditUser.Email}}{{else}}未设置{{end}}</dd></dl>
+<div class="field"><label class="check"><input name="Admin" type="checkbox" {{if .EditUser.Admin}}checked{{end}} {{if eq .EditUser.ID .User.ID}}disabled aria-describedby="user-self-protection"{{end}}>全站管理员</label></div>
+<div class="field"><label class="check"><input name="Active" type="checkbox" {{if .EditUser.Active}}checked{{end}} {{if eq .EditUser.ID .User.ID}}disabled aria-describedby="user-self-protection"{{end}}>启用账号</label></div>
+{{if eq .EditUser.ID .User.ID}}<p class="help restriction-hint" id="user-self-protection">{{template "shared/menu_icon" "info"}}不能停用当前管理员或取消自己的管理员权限。</p><input type="hidden" name="Admin" data-bool value="true"><input type="hidden" name="Active" data-bool value="true">{{end}}
+<p class="help">保存将撤销此用户的现有登录会话。</p><button class="ui primary button">更新用户</button><a class="ui button" href="/-/admin/users">取消</a>
+</form></div>
+
+<h4 class="ui top attached header">删除用户</h4><div class="ui attached segment">{{if .EditUser.LDAPAccount}}<p>LDAP 用户由目录服务管理，不能在此单独删除。</p>{{else}}<p>永久删除本地用户及其登录会话、组织和团队成员关系。组织、团队、仓库和历史记录保留。</p>{{end}}{{if .UserDeleteDisabledReason}}<p class="help restriction-hint" id="user-delete-disabled-reason">{{template "shared/menu_icon" "info"}}{{.UserDeleteDisabledReason}}</p>{{end}}<button type="button" class="ui basic red button" id="open-delete-user" {{if .UserDeleteDisabledReason}}disabled aria-describedby="user-delete-disabled-reason"{{end}}>删除用户</button></div>
+{{if not .UserDeleteDisabledReason}}<dialog id="delete-user-dialog" class="leave-organization-dialog" aria-labelledby="delete-user-title"><div class="leave-organization-heading" id="delete-user-title">删除本地用户</div><form class="ui form" data-api="/api/v1/admin/users/{{.EditUser.ID}}/delete" data-next="/-/admin/users"><div class="leave-organization-content"><p class="ui warning message">此操作不可撤销，用户将失去登录和组织访问权限。</p><div class="required field"><label for="delete-user-name">请输入用户名 {{.EditUser.Name}} 以确认</label><input id="delete-user-name" name="Name" required autocomplete="off"></div><p role="alert" class="ui negative message" data-delete-error hidden></p></div><div class="leave-organization-actions"><button class="ui button" type="button" data-delete-user-cancel>取消</button><button class="ui red button" type="submit">确认删除用户</button></div></form></dialog>{{end}}
+
+</div>

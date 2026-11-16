@@ -1,0 +1,14 @@
+{{/* Adapted from Gitea templates/repo/header.tmpl (MIT), fixed baseline. */}}
+<div class="secondary-nav repo-navbar">
+ <div class="ui container">
+  <div class="repo-header flex-left-right">
+   {{with .Repo}}<div class="flex-text-block">{{template "repo/icon" .}}<div class="flex-text-block tw-flex-wrap tw-text-18"><a class="muted tw-font-normal" href="{{orgLink .Organization}}">{{.Organization}}</a>/<a class="muted" href="{{repoLink .Organization .Name .ID}}">{{.Name}}</a></div>{{if not (or (eq $.Tab "tree") (eq $.Tab "file"))}}{{template "repo/size" .Repository}}{{end}}</div>{{end}}
+   {{if and .Repo.CanManage (ne .Tab "settings") (eq .Repo.Kind "mirror") (eq .Repo.Status "ready")}}<form class="ui form repo-header-actions" data-api="/api/v1/repositories/{{.Repo.ID}}/sync"><button class="ui basic button action-text-button action-small" data-sync-action {{if .Repo.Halted}}disabled{{end}}>{{template "shared/menu_icon" "sync"}}<span>立即同步</span></button></form>{{end}}
+  </div>
+  <nav class="ui secondary pointing menu repo-tabs" aria-label="仓库导航">
+   {{if eq .Repo.Status "ready"}}<a class="item {{if or (eq .Tab "tree") (eq .Tab "file")}}active{{end}}" {{if or (eq .Tab "tree") (eq .Tab "file")}}aria-current="page"{{end}} href="{{.Link "tree" "" .Revision}}">{{template "shared/menu_icon" "file"}}<span>文件</span></a><a class="item {{if eq .Tab "log"}}active{{end}}" {{if eq .Tab "log"}}aria-current="page"{{end}} href="{{.Link "log" .Path .Revision}}">{{template "shared/menu_icon" "history"}}<span>修订历史</span></a>{{end}}
+   <a class="item {{if eq .Tab "tasks"}}active{{end}}" {{if eq .Tab "tasks"}}aria-current="page"{{end}} href="{{.Link "tasks" "" .Revision}}">{{template "shared/menu_icon" "tasklist"}}<span>任务记录</span></a>
+   {{if .Repo.CanManage}}<a class="item repo-settings-link {{if eq .Tab "settings"}}active{{end}}" {{if eq .Tab "settings"}}aria-current="page"{{end}} href="{{.Link "settings" "" .Revision}}">{{template "shared/menu_icon" "tools"}}<span>设置</span></a>{{end}}
+  </nav>
+ </div>
+</div>

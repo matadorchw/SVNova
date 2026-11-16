@@ -1,0 +1,16 @@
+{{/* SVN-only adaptation of Gitea's segmented mirror settings. */}}
+<h4 class="ui top attached header">转换为镜像仓库</h4>
+<div class="ui attached segment">
+ <p>快速转换仅检查仓库身份及镜像配置，不逐修订比对历史内容。请确认本地仓库与远端同源，且历史未被独立修改。</p>
+ <form class="ui form" data-api="/api/v1/repositories/{{.Repo.ID}}/convert-mirror" data-next="{{.Link "tasks" "" .Revision}}">
+  <div class="required field"><label for="convert-remote">远端仓库根地址</label><input id="convert-remote" name="Remote" type="url" required placeholder="https://svn.example.com/repository"></div>
+  <div class="field"><label for="convert-username">远端用户名</label><input id="convert-username" name="Username" autocomplete="off"></div>
+  <div class="field"><label for="convert-password">远端密码</label><input id="convert-password" name="Password" type="password" autocomplete="new-password"></div>
+  <div class="field"><label for="convert-interval">同步间隔（秒）</label><input id="convert-interval" name="Interval" type="number" data-number min="0" step="600" value="28800"><p class="muted">转换成功后立即同步一次；0 关闭后续自动同步，最小间隔 600 秒。</p></div>
+  <div class="field"><label class="check"><input name="SkipTLS" type="checkbox">跳过 HTTPS 证书校验</label></div>
+  <div class="required field"><label class="check"><input name="FullAccess" type="checkbox" required>确认远端账号可读取完整仓库及全部修订，本地仓库不再接受其他写入</label></div>
+  <p class="muted">后台执行，关闭页面不会中断，可在任务记录中查看进度。UUID或修订不符合要求、已有镜像元数据或自定义提交或修订属性钩子时将拒绝转换，保留原配置。</p>
+  {{if .Repo.Halted}}<p class="help restriction-hint">{{template "shared/menu_icon" "info"}}仓库完整性检查异常，不能转换为镜像。</p>{{else if .RepositoryTaskActive}}<p class="help restriction-hint">{{template "shared/menu_icon" "info"}}仓库任务正在排队或执行中，请等待任务结束后再转换。</p>{{else if ne .Repo.Status "ready"}}<p class="help restriction-hint">{{template "shared/menu_icon" "info"}}仓库就绪后才能转换为镜像。</p>{{end}}
+  <button class="ui primary button" {{if or .RepositoryTaskActive .Repo.Halted (ne .Repo.Status "ready")}}disabled{{end}}>快速转换为镜像</button>
+ </form>
+</div>

@@ -1,0 +1,11 @@
+{{/* SVN metadata sidebar following Gitea's repository file layout (MIT). */}}
+<aside class="repo-file-sidebar" aria-label="仓库信息">
+ <section>
+  <h3>仓库信息</h3>
+  <div class="repo-file-sidebar-row" title="仓库目录内文件总大小，包含全部历史；后台统计">{{template "shared/menu_icon" "database"}}<span>仓库大小 {{repositorySize .Repo.Repository}}</span></div>
+ </section>
+ {{if eq .Repo.Kind "mirror"}}<section class="repo-file-remote">
+  <h3>镜像地址</h3>
+  {{if .Repo.Remote}}<a class="repo-file-remote-url" href="{{.Repo.Remote}}" rel="noreferrer">{{.Repo.Remote}}</a>{{else}}<span class="muted">未配置远端地址</span>{{end}}
+ </section>{{end}}
+</aside>

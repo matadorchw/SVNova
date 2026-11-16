@@ -1,0 +1,487 @@
+/* Gitea uses a 767.98px mobile breakpoint. MIT; SVN layout adaptations. */
+.page-content {min-height: calc(100vh - 130px);}
+fieldset {border: 0; padding: 0; margin: 0; min-width: 0;}
+[hidden] {display: none !important;}
+.member-row {display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--color-secondary);}
+.tabs {display: flex; flex-wrap: wrap; gap: 12px; align-items: center;}
+.tabs a {padding: 12px 8px;}
+.table-scroll {max-width: 100%; overflow-x: auto;}
+.table-scroll table {min-width: 540px;}
+.code-view {overflow: auto; max-width: 100%; white-space: pre; tab-size: 4;}
+.path, h1, h2, .member-row, .message {overflow-wrap: anywhere;}
+.commit-message {white-space: pre-wrap;}
+.svg {fill: currentColor; vertical-align: middle;}
+.flex-container-nav a {display: block; padding: 12px;}
+.form-panel {width: 100%; max-width: 800px;}
+.form-panel input:not([type=checkbox]), .form-panel select {max-width: 100%;}
+button, .button {min-height: 36px;}
+:focus-visible {outline: 2px solid var(--color-primary); outline-offset: 2px;}
+@media (max-width: 767.98px) {
+ main {padding: 16px; width: 100%;}
+ .title, .toolbar, .inline {flex-wrap: wrap; gap: 12px;}
+ .inline > input, .inline > select {min-width: 0; flex: 1 1 180px;}
+ .form-panel {padding: 16px;}
+ .flex-container-nav {display: flex; flex-wrap: wrap;}
+ .flex-container-nav a {padding: 10px;}
+ h1 {font-size: 24px;}
+}
+.ui.form > label {display:block; margin-bottom: 16px;}
+.ui.form > label.check {display:flex;}
+.center {text-align:center;}
+.ui.table {width:100%;}
+.only-mobile {display:none;}
+#navbar {font-size:14px;}
+#navbar .item {border:0; margin:0; gap:8px;}
+#navbar svg {fill:currentColor;}
+@media(max-width:767.98px) { .only-mobile {display:flex;} :root {--page-margin-x:16px;} .page-content.ui.container {padding:0;} }
+
+.signin-column {max-width:550px; margin:64px auto;}
+.signin .page.grid {display:block; padding:0 16px;}
+.signin .segment {padding:24px;}
+@media(max-width:767.98px) {.signin-column {margin:32px auto;} }
+.repo-header {display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0;}
+.repo-header .flex-text-block {display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;}
+.repo-header .tw-text-18 {font-size:18px;}
+.secondary-nav:not(.repo-navbar) > .ui.container {width:100%;max-width:100%;}
+
+/* Gitea dropdown markup with native details state and keyboard activation. */
+.nav-dropdown {position:relative;}
+.nav-dropdown > summary {display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;min-height:36px;}
+.nav-dropdown > summary::-webkit-details-marker {display:none;}
+.nav-dropdown > .menu {display:none;position:absolute;top:100%;right:0;left:auto;min-width:200px;z-index:100;background:var(--color-menu);border:1px solid var(--color-secondary);border-radius:var(--border-radius);box-shadow:0 3px 8px #0002;padding:4px 0;}
+.nav-dropdown[open] > .menu {display:block;}
+.nav-dropdown .menu .item {display:flex;width:100%;padding:10px 16px;color:var(--color-text);background:none;border:0;border-radius:0;text-align:left;justify-content:flex-start;min-height:36px;}
+.nav-dropdown .menu .item:hover {background:var(--color-hover);text-decoration:none;}
+.nav-dropdown .menu .header {padding:10px 16px;}
+.nav-dropdown .menu .divider {border-top:1px solid var(--color-secondary);margin:4px 0;}
+.nav-dropdown .menu form {margin:0;}
+.navbar-avatar {position:relative;display:inline-flex;}
+.dashboard-navbar {padding:0;border-bottom:1px solid var(--color-secondary);}
+.dashboard-navbar > .ui.menu {margin:0;min-height:44px;}
+.dashboard-navbar .nav-dropdown > summary {min-height:24px;}
+.dashboard-navbar > .ui.menu > .item {padding:10px 16px;margin:0;}
+.ui.selection.dropdown[data-select-enhanced],label > .ui.selection.dropdown {max-width:100%;}
+label > .ui.selection.dropdown {display:block;width:100%;margin-top:8px;}
+.ui.dropdown .menu.hidden.transition {display:none;}
+.ui.dropdown .menu.visible.transition {display:block;}
+.dashboard-navbar .menu.context-user-switch {left:0;right:auto;}
+#navbar .nav-dropdown[open] {background:var(--color-active);}
+@media(max-width:767.98px) {#navbar.navbar-menu-open .nav-dropdown > .menu {position:static;width:100%;box-shadow:none;} #navbar.navbar-menu-open .nav-dropdown {display:block;} }
+.ui.dropdown.nav-dropdown > .menu {left:auto;right:0;min-width:200px;max-width:calc(100vw - 32px);}
+.dashboard-navbar .ui.dropdown.nav-dropdown > .menu {left:0;right:auto;}
+.ui.dropdown.nav-dropdown > .menu > .header {white-space:normal;overflow-wrap:anywhere;}
+#navbar .nav-dropdown > summary {display:flex;}
+@media(max-width:767.98px) {
+ #navbar.navbar-menu-open .navbar-right {width:100%;}
+ #navbar.navbar-menu-open .navbar-right > details.nav-dropdown {display:block;}
+ #navbar.navbar-menu-open .ui.dropdown.nav-dropdown > .menu {position:static;left:auto;right:auto;min-width:0;width:100%;max-width:100%;}
+}
+/* Gitea context-user-switch keeps only the account list scrollable. */
+.ui.dropdown.nav-dropdown > .context-user-switch {width:240px;}
+.ui.dropdown.nav-dropdown > .context-user-switch > .scrolling.menu {position:static;display:block;min-width:0;width:100%;max-height:280px;overflow-y:auto;overflow-x:hidden;box-shadow:none;border:0;border-radius:0;padding:0;}
+.context-user-switch .item {gap:10px;}
+.context-user-switch .item > span:not(.label) {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.context-user-switch .item.active.selected {background:var(--color-active);font-weight:600;}
+.context-user-switch .context-create {border-top:1px solid var(--color-secondary) !important;}
+.context-user-switch svg,.nav-dropdown .menu svg {fill:currentColor;flex-shrink:0;}
+.menu-icon {display:inline-block;flex:0 0 16px;fill:currentColor;vertical-align:middle;}
+.settings-nav a,.tabs a {display:flex;align-items:center;gap:8px;}
+.nav-dropdown .menu .item {gap:10px;}
+/* The upstream segment margin shorthand otherwise overrides horizontal auto margins. */
+.ui.segment.form-panel {margin-left:auto;margin-right:auto;}
+.org-list-header {display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.left-right-form > .inline.field {display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;}
+.left-right-form > .inline.field > label {flex:0 0 28%;text-align:right;padding-top:10px;}
+.left-right-form .inline-right {flex:1;min-width:0;}
+.left-right-form > .inline.field.static-field > label {padding-top:0;}
+.left-right-form .inline-right input:not([type="checkbox"], [type="radio"]) {width:100%;}
+@media(max-width:767.98px) {.left-right-form > .inline.field {flex-direction:column;gap:8px;} .left-right-form > .inline.field > label {text-align:left;padding:0;margin:0;} .left-right-form .inline-right {width:100%;} .org-list-header {flex-wrap:wrap;} }
+.admin-setting-content form.inline > input[name=q] {flex:1 1 200px;width:auto;}
+.admin-setting-content form.inline > select {width:auto;}
+.org-profile-header {align-items:flex-start;margin-top:0;}
+.org-avatar {flex:0 0 100px;border-radius:4px;}
+.org-profile-header h1 {margin:8px 0 12px;}
+.org-description {white-space:pre-wrap;overflow-wrap:anywhere;}
+.org-contact {display:flex;flex-wrap:wrap;gap:16px;}
+.org-tabs {flex-wrap:wrap !important;}
+.org-tabs .item {gap:8px;}
+.org-tabs .org-settings-link {margin-left:auto !important;}
+.org-profile-grid {display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;margin-top:16px;}
+.org-sidebar {min-width:0;}
+.org-sidebar section {margin-top:16px;}
+.org-sidebar .ui.header a {display:flex;justify-content:space-between;color:var(--color-text);}
+.org-member-avatars {display:flex;flex-wrap:wrap;gap:8px;}
+.org-team-summary {margin-bottom:16px;}
+.org-team-summary p {margin:4px 0;}
+.org-migrate {width:100%;}
+.org-repo-search input {min-width:0;}
+.org-team-list {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:16px 0;}
+.org-team-list .ui.segment {margin:0;}
+textarea {width:100%;resize:vertical;font:inherit;color:var(--color-text);}
+.org-settings-layout .settings-nav h4 {padding:16px;border-bottom:1px solid var(--color-secondary);margin:0;}
+@media(max-width:767.98px) {.org-profile-grid {grid-template-columns:minmax(0,1fr);gap:16px;} .org-profile-header {flex-direction:row;} .org-avatar {width:64px;height:64px;flex-basis:64px;} .org-profile-header h1 {font-size:22px;} .org-tabs .org-settings-link {margin-left:0 !important;} .org-settings-layout .settings-nav {width:100%;} }
+/* Match Gitea's square avatar geometry; dropdown image rules must not override dimensions. */
+img.avatar {object-fit:cover;aspect-ratio:1;flex-shrink:0;border-radius:var(--border-radius);}
+.ui.dropdown .menu > .item > img.avatar {width:28px;height:28px;max-height:none;margin:0;flex:0 0 28px;}
+.ui.dropdown > .text > img.avatar {width:24px;height:24px;max-height:none;margin:0;flex:0 0 24px;}
+.org-management-toolbar {display:flex;align-items:center;justify-content:space-between;gap:16px;margin:16px 0;}
+.org-management-toolbar p {margin:0;}
+.org-search {margin:16px 0 !important;}
+.org-member-item {display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--color-secondary);}
+.org-member-item form {margin:0;}
+.org-member-main {flex:1;min-width:0;overflow-wrap:anywhere;}
+.org-member-main p {margin:6px 0 0;}
+.org-team-cards {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
+.team-item-box {min-width:0;}
+.team-item-header,.team-card-actions {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.team-item-header {font-size:14px !important;}
+.team-card-actions {font-size:13px;font-weight:400;}
+.team-card-actions form {margin:0;}
+.team-item-description {font-size:14px !important;font-weight:400 !important;overflow-wrap:anywhere;}
+.team-card-avatars {display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:32px;}
+.team-detail-layout {display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;margin-top:16px;}
+.team-detail-sidebar {min-width:0;}
+.team-detail-main {min-width:0;}
+.team-add-member {margin:0 !important;}
+@media(max-width:767.98px) {.org-management-toolbar,.org-member-item {flex-wrap:wrap;} .org-team-cards,.team-detail-layout {grid-template-columns:minmax(0,1fr);} .org-management-toolbar .button {margin-left:auto;} .org-member-item .org-member-main {flex-basis:calc(100% - 72px);} .org-member-item form {margin-left:auto;} }
+.dashboard-grid {display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:20px;align-items:start;}
+.dashboard-main,.dashboard-sidebar {min-width:0;}
+.dashboard-switch {margin:0 0 16px !important;}
+.dashboard-repo-header {display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.dashboard-search .ui.form {margin:0;}
+.dashboard-rows {padding:0 !important;}
+.dashboard-repo-row {display:flex;align-items:center;gap:8px;min-width:0;padding:9px 12px;border-bottom:1px solid var(--color-secondary);font-size:13px;}
+.dashboard-repo-row:last-child {border-bottom:0;}
+.dashboard-repo-row > span:first-of-type {overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1;}
+.dashboard-success {color:var(--color-green);margin-left:auto;}
+.dashboard-kind-filter {justify-content:center;flex-wrap:wrap;}
+/* Adapted from Gitea DashboardRepoList.vue repos-filter (MIT). */
+.dashboard-kind-filter .item {padding-left:6px !important;padding-right:6px !important;}
+.dashboard-sidebar > .ui.attached {width:100%;margin-left:0;margin-right:0;}
+.dashboard-sidebar > .dashboard-kind-filter.ui.menu {margin-top:0;margin-bottom:0;border-top:0;}
+.dashboard-sidebar > .dashboard-rows.ui.segment {margin-top:0;margin-bottom:0;}
+.dashboard-rows > .empty {margin:0;}
+.dashboard-activity {display:flex;gap:12px;padding:16px 0;border-top:1px solid var(--color-secondary);}
+.activity-body {min-width:0;flex:1;}
+.activity-body > p {margin:0 0 8px;overflow-wrap:anywhere;}
+.activity-time {font-size:12px;}
+.activity-commit {display:flex;align-items:flex-start;gap:8px;}
+.activity-message {margin:0;white-space:pre-line;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.dashboard-pagination {display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;}
+.heatmap-level-0 {fill:var(--color-secondary-alpha-60);}
+.heatmap-level-1 {fill:var(--color-primary-light-4);}
+.heatmap-level-2 {fill:var(--color-primary-light-2);}
+.heatmap-level-3 {fill:var(--color-primary);}
+.heatmap-level-4 {fill:var(--color-primary-dark-2);}
+.heatmap-level-5 {fill:var(--color-primary-dark-4);}
+@media(max-width:991.98px) {.dashboard-grid {grid-template-columns:minmax(0,1fr) 340px;}}
+@media(max-width:767.98px) {.dashboard-grid {grid-template-columns:minmax(0,1fr);} .dashboard-sidebar {order:-1;} .activity-commit {flex-wrap:wrap;} }
+#user-heatmap .heatmap-svg {display:block;width:100%;height:auto;}
+#user-heatmap .heatmap-footer {flex-wrap:wrap;gap:8px;}
+#user-heatmap .heatmap-legend-svg {width:92px;flex:0 0 92px;}
+
+/* Adapted from Gitea repo/migrate/migrating.tmpl centered grid presentation. */
+.migration-status {text-align:center;padding:32px 16px;overflow-wrap:anywhere;}
+.migration-status .migration-image {margin-bottom:24px;}
+.migration-status .migration-image img {max-width:100%;height:auto;}
+.migration-status [hidden] {display:none !important;}
+.migration-status .migration-actions {display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px;}
+.migration-status .migration-actions .ui.form {margin:0;}
+
+
+.migration-loading-logo {animation:migration-pulse 1.8s ease-in-out infinite;}
+@keyframes migration-pulse {50% {opacity:.45;}}
+@media(prefers-reduced-motion:reduce){.migration-loading-logo {animation:none;}}
+
+/* Adapted from Gitea repo/settings layout and repository header spacing. */
+.page-content.repository-container {margin-top:0;}
+.repository-container > .repository.page-content {margin:0;}
+.repo-navbar {padding:0;}
+
+.repo-navbar .repo-header {padding:8px 0 4px;}
+.repo-navbar .repo-header-actions.ui.form {margin:0;}
+.repo-navbar .repo-tabs.ui.menu {gap:0;margin:0;border-bottom:0;flex-wrap:nowrap;overflow-x:auto;}
+.repo-navbar .repo-tabs.ui.menu > .item {margin:0;padding:10px 16px;white-space:nowrap;gap:8px;}
+.repo-navbar .repo-tabs.ui.menu > .item > .svg {margin:0;flex-shrink:0;}
+.repo-navbar .repo-tabs.ui.menu > .item.active {border-bottom-color:var(--color-text-dark);}
+.repo-navbar .repo-tabs.ui.menu > .repo-settings-link {margin-left:auto;}
+.repo-settings-layout {margin-top:16px;}
+.repo-settings-layout .flex-container-nav {flex:0 0 240px;}
+.repo-setting-content > .ui.header:not(:first-child) {margin-top:24px;}
+.repo-setting-content .ui.form .field > label {margin-bottom:8px;}
+@media(max-width:767.98px){.repo-settings-layout .flex-container-nav {flex-basis:auto;width:100%;}.repo-navbar .repo-tabs.ui.menu > .item {padding:10px 8px;}.repo-navbar .repo-header {gap:8px;}.repo-navbar .repo-header .tw-text-18 {font-size:16px;}.repo-header-actions {margin-left:auto !important;}}
+
+.table-scroll .mirror-settings-table {table-layout:fixed;min-width:0;}
+.mirror-settings-table th:first-child {width:40%;}
+.mirror-settings-table th:nth-child(2) {width:12%;}
+.mirror-settings-table th:last-child {width:160px;}
+.mirror-source {overflow-wrap:anywhere;}
+.mirror-sync-action {text-align:right;}
+.mirror-sync-action .ui.form {margin:0;}
+.mirror-sync-action .ui.button {margin:0;max-width:100%;}
+.mirror-auth > summary {cursor:pointer;padding:8px 0;}
+.mirror-auth > .field {margin-top:12px;}
+
+/* Keep native checkbox labels consistent inside and outside Fomantic fields. */
+label.check,.ui.form label.check,.ui.form .field > label.check {display:flex;align-items:flex-start;gap:8px;line-height:1.5;min-height:24px;font-weight:500;cursor:pointer;}
+label.check > input[type="checkbox"],.ui.form label.check > input[type="checkbox"] {flex:0 0 var(--checkbox-size);width:var(--checkbox-size);height:var(--checkbox-size);padding:0;margin:3px 0 0;}
+label.check > strong {font-weight:inherit;}
+label.check > strong.text-bold {font-weight:700;}
+.ui.form .field > label.check {margin-bottom:0;}
+
+/* Gitea migration form: fixed desktop labels with editable source/name controls. */
+.migration-form-page .medium-width {max-width:100%;}
+.ui.form.migration-form > .inline.field {gap:14px;}
+.ui.form.migration-form > .inline.field > label {flex:0 0 250px;margin-right:0;margin-bottom:0;}
+.ui.form.migration-form .inline-right {max-width:386px;}
+.ui.form.left-right-form.migration-form .inline.field .inline-right > input,.ui.form.left-right-form.migration-form .inline.field .inline-right > .ui.dropdown {width:100%;}
+.migration-form .inline-right > p {margin:0;}
+.migration-form [data-kind][hidden] {display:none !important;}
+.migration-submit {display:flex;gap:8px;flex-wrap:wrap;}
+@media(max-width:767.98px){.ui.form.migration-form > .inline.field > label {flex-basis:auto;width:100%;}.ui.form.migration-form .inline-right {max-width:none;}}
+
+
+.page-content.migration-container {margin-top:16px;}
+.migration-form-page {padding:0;border:0;}
+
+.action-icon-button {display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;min-height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:var(--color-primary);cursor:pointer;}
+.action-icon-button:hover {background:var(--color-hover);}
+.action-icon-button:focus-visible {outline:2px solid var(--color-primary);outline-offset:2px;}
+.action-icon-button svg {fill:currentColor;}
+
+/* Task actions must not inherit the page form's bottom spacing. */
+[data-task-status] .ui.table > tbody > tr > td {vertical-align:middle;padding:4px 8px;height:33px;}
+[data-task-status] td:last-child {width:48px;text-align:center;white-space:nowrap;}
+[data-task-status] td .ui.form {display:flex;align-items:center;justify-content:center;margin:0;}
+[data-task-status] .action-icon-button {flex:none;}
+
+.org-repository h2 > .svg {width:16px;height:16px;flex-shrink:0;}
+
+.auth-list-header {display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ldap-config-title {margin:0;font:inherit;}
+
+.auth-cleanup-dialog {width:min(600px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;border:1px solid var(--color-secondary);border-radius:6px;padding:24px;background:var(--color-body);color:var(--color-text);}
+.auth-cleanup-dialog::backdrop {background:#0008;}
+.auth-cleanup-dialog label {display:flex;flex-direction:column;gap:8px;}
+.auth-cleanup-dialog .cleanup-actions {display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:20px;}
+
+.auth-history-toolbar,.auth-history-pagination {display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.auth-history-toolbar > .ui.form {display:flex;align-items:center;margin:0;}
+.auth-history-pagination {justify-content:center;margin-top:16px;}
+
+
+/* Shared Gitea admin/user search menus and base/paginate layout. */
+.admin-users-heading {display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px}
+.ui.form.admin-users-filters {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;margin:0}
+.ui.input.admin-users-search {min-width:0;width:100%}
+/* The upstream input has flex-shrink:0; reserve room for the search button. */
+.ui.input.admin-users-search > input {flex:1 1 0;width:0;min-width:0}
+.ui.input.admin-users-search > .button {flex:0 0 38px;width:38px;padding-left:0;padding-right:0}
+.ui.secondary.menu.admin-users-menus {margin:0;flex:none;gap:4px;min-height:38px}
+.ui.secondary.menu.admin-users-menus > .item {margin:0;padding:12px;gap:4px;white-space:nowrap}
+.ui.secondary.menu.admin-users-menus .ui.dropdown.item > .menu {right:0;left:auto;width:max-content;min-width:180px;max-width:calc(100vw - 32px)}
+.admin-users-menus .menu > .item {display:flex;align-items:center;gap:8px;min-height:36px;margin:0;width:100%;border:0;border-radius:0;background:transparent;text-align:left;justify-content:flex-start;font-weight:400}
+.admin-users-menus .menu > .item:hover {background:var(--color-hover)}
+.admin-users-menus .menu > .item.active {background:var(--color-active);font-weight:600}
+/* Override menu display:block and the generic label input's full-width layout. */
+.ui.secondary.menu.admin-users-menus .ui.dropdown.item > .menu > .item:not(.filtered) {display:flex;flex-direction:row;align-items:center;gap:8px;min-height:36px}
+.ui.form.admin-users-filters .admin-users-menus label.item > input[type=radio] {display:inline-block;flex:0 0 14px;width:14px;height:14px;margin:0;padding:0}
+.admin-users-menus .filter-indicator {display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--color-primary)}
+.admin-users-sort-menu {background:var(--color-button) !important}
+.admin-users-table td {vertical-align:middle;white-space:nowrap}
+.admin-user-email {max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.admin-user-edit {display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px}
+.list-pagination {margin-top:16px;text-align:center}
+.list-pagination .ui.menu .item {display:flex;align-items:center;justify-content:center;gap:4px}
+@media(max-width:767.98px){
+ .admin-users-heading {flex-wrap:wrap}
+ .ui.form.admin-users-filters {grid-template-columns:minmax(0,1fr)}
+ .admin-users-menus {margin-left:auto !important}
+ .admin-user-edit {min-width:40px;min-height:40px}
+ .list-pagination .ui.pagination.menu .item {min-width:32px;padding:10px}
+}
+
+
+
+.notification-actions {white-space:nowrap;}
+.notification-actions > a,.notification-actions > form.ui.form {display:inline-flex;align-items:center;vertical-align:middle;margin:0;}
+.notification-actions > a,.notification-actions .action-icon-button {min-width:32px;min-height:32px;}
+.notification-preview {white-space:pre-wrap;overflow-wrap:anywhere;max-height:500px;overflow:auto;}
+@media(max-width:767.98px){.notification-actions > a,.notification-actions .action-icon-button {min-width:40px;min-height:40px;}}
+.table-scroll .notification-table {min-width:0;}
+.notification-table th {white-space:nowrap;}
+.notification-table td {vertical-align:middle;}
+.activity-task-icon {display:flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;height:32px;color:var(--color-text-light-1);}
+
+/* Gitea admin uses the viewport-wide padded container, with one shared sidebar. */
+.page-content.admin-page {margin-top:16px;}
+.admin-page > .flex-container.ui.container {width:100%;max-width:none;}
+.admin-page .flex-container-nav {flex:0 0 240px;}
+.admin-page .form-panel {max-width:none;margin:0;}
+
+.notification-table td:nth-child(2),.notification-table td:nth-child(8) {overflow-wrap:anywhere;min-width:120px;}
+.notification-table td:nth-child(5),.notification-table td:nth-child(6),.notification-table td:nth-child(7) {min-width:110px;}
+@media(max-width:767.98px){.admin-page .flex-container-nav {flex-basis:auto;}.admin-page .notification-table {min-width:850px;}}
+
+.admin-settings-heading {flex-basis:100%;padding:16px;font-weight:500;background:var(--color-box-header);border-bottom:1px solid var(--color-secondary);border-radius:var(--border-radius) var(--border-radius) 0 0;}
+.admin-settings-nav > a {padding:14px 16px;border-bottom:1px solid var(--color-secondary);}
+.admin-settings-nav > a:last-child {border-bottom:0;}
+@media(max-width:767.98px){.admin-settings-nav > a {border-bottom:0;}}
+
+.footer-version {margin-left:12px;white-space:nowrap;}
+
+.activity-heading {display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-bottom:8px;}
+.activity-title {display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;min-width:0;}
+.activity-title > a {min-width:0;overflow-wrap:anywhere;}
+
+.activity-heading > time {white-space:nowrap;font-size:12px;}
+
+/* Keep repository tab content at a consistent distance from navigation. */
+.repo-home-filelist {padding-top:16px;}
+.repo-home-filelist > :first-child {margin-top:0;}
+.repo-home-filelist > .toolbar {margin:0 0 16px;}
+.repo-home-filelist > .table-scroll > .ui.table {margin-top:0;}
+.repository-container > .repository.page-content {padding:0;border-bottom:0;}
+.repo-home-filelist > .revision-entry {padding:12px 0;}
+.repo-home-filelist > .revision-entry h3 {margin:0;}
+.repo-home-filelist > .revision-entry p {margin:6px 0 0;}
+.repo-home-filelist > .revision-entry .commit-message:empty {display:none;}
+
+#navbar .activity-nav-link {white-space:nowrap;}
+#navbar .activity-nav-link[aria-current="page"] {background:var(--color-active);}
+
+[data-task-status] progress {display:block;width:100%;max-width:240px;height:6px;margin-top:8px;}
+
+.repository-size {white-space:nowrap;font-size:13px;font-weight:normal;}
+
+.repo-file-layout {display:grid;grid-template-columns:minmax(0,1fr) 360px;align-items:start;gap:24px;}
+.repo-file-layout > .repo-home-filelist {min-width:0;}
+.repo-file-sidebar {display:grid;gap:16px;min-width:0;padding-top:4px;}
+.repo-file-sidebar section {display:grid;gap:10px;min-width:0;}
+.repo-file-sidebar h3 {margin:0;font-size:16px;}
+.repo-file-sidebar-row {display:flex;align-items:center;gap:8px;}
+.repo-file-remote {border-top:1px solid var(--color-secondary);padding-top:16px;}
+.repo-file-remote-url {overflow-wrap:anywhere;min-width:0;}
+@media(max-width:991.98px){.repo-file-layout {grid-template-columns:minmax(0,1fr);}.repo-file-sidebar {border-top:1px solid var(--color-secondary);padding-top:16px;}}
+
+.repo-path-breadcrumb {min-width:0;flex:1 1 200px;}
+.repo-path-breadcrumb ol {display:flex;flex-wrap:wrap;align-items:center;gap:4px;list-style:none;margin:0;padding:0;}
+.repo-path-breadcrumb li {display:flex;align-items:baseline;gap:4px;min-width:0;}
+.repo-path-breadcrumb a,.repo-path-current {overflow-wrap:anywhere;}
+.repo-path-current {font-weight:600;}
+
+.repo-list-remote {display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;min-width:0;font-size:13px;}
+.repo-list-remote a {overflow-wrap:anywhere;min-width:0;max-width:100%;}
+.repo-list-entry {display:grid;gap:6px;min-width:0;}
+
+.org-repository-heading {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;}
+.org-repository-heading h2 {min-width:0;overflow-wrap:anywhere;}
+.org-repository-time {margin-inline-start:auto;font-size:13px;white-space:nowrap;text-align:right;}
+
+.dashboard-feed-pager.ui.menu,.dashboard-compact-pager.ui.menu {margin:0;box-shadow:none;background:var(--color-light);border:1px solid var(--color-secondary);min-height:0;}
+.dashboard-feed-pager.ui.menu .item {display:flex;align-items:center;gap:6px;padding:12px 14px;}
+.dashboard-compact-pager.ui.menu .item {display:flex;align-items:center;justify-content:center;min-width:32px;padding:10px;}
+.dashboard-repo-pagination.ui.segment {margin-top:0;padding:8px;}
+
+
+.org-repository {display:grid;gap:8px;}
+.org-repository-details {display:grid;gap:8px;padding-inline-start:24px;min-width:0;}
+.org-repository-details > p {margin:0;}
+
+.repo-home-filelist > .revision-entry {display:grid;gap:8px;}
+.revision-heading {display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;}
+.revision-heading h3 {min-width:0;overflow-wrap:anywhere;}
+.revision-time {margin-inline-start:auto;white-space:nowrap;font-size:13px;text-align:right;}
+.revision-details {display:grid;gap:6px;padding-inline-start:24px;min-width:0;overflow-wrap:anywhere;}
+.repo-home-filelist > .revision-entry .revision-details p {margin:0;}
+.repo-home-filelist > .repository-history-pagination {display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+
+.repository-history-pagination > .ui.button {margin:0;}
+
+.list-pagination .navigation_label[hidden] {display:none;}
+
+
+
+
+[data-task-center] progress {display:block;max-width:100%;}
+
+.task-result-summary {min-width:180px;white-space:normal;overflow-wrap:anywhere;}
+.revision-history {table-layout:fixed;min-width:760px;width:100%;}
+.revision-history > thead > tr > th:nth-child(1) {width:44px;}
+.revision-history > thead > tr > th:nth-child(2) {width:90px;}
+.revision-history > thead > tr > th:nth-child(3) {width:100px;}
+.revision-history > thead > tr > th:nth-child(4) {width:140px;}
+.revision-history > thead > tr > th:nth-child(5) {width:180px;}
+.revision-history [data-history-row] {cursor:pointer;}
+.revision-history .history-summary {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.revision-history [data-history-row] > td {overflow-wrap:anywhere;}
+.history-toggle {display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--color-text);padding:4px;cursor:pointer;}
+.history-toggle[aria-expanded="true"] svg {transform:rotate(90deg);}
+.history-actions {display:flex;gap:6px;}
+.history-detail[hidden] {display:none;}
+.history-detail-content {display:grid;gap:12px;padding:12px;padding-inline-start:44px;overflow-wrap:anywhere;}
+.history-detail-content p {margin:0;}
+.revision-history .ui.table.history-paths {table-layout:fixed;width:100%;font-size:12px;}
+.history-paths td {overflow-wrap:anywhere;}
+
+.history-paths th:nth-child(2) {width:64px;}
+.history-paths th:nth-child(4) {width:96px;}
+.history-paths td:nth-child(2),.history-paths td:nth-child(4) {white-space:nowrap;}
+.history-action {font-family:var(--fonts-monospace,monospace);font-weight:600;}
+.history-action[data-action="A"] {color:var(--color-green);}
+.history-action[data-action="M"] {color:var(--color-blue);}
+.history-action[data-action="D"] {color:var(--color-red);}
+.history-action[data-action="R"] {color:var(--color-orange);}
+
+.activity-organization-avatar {flex:0 0 40px;display:block;}
+.activity-organization-avatar img {display:block;}
+.activity-task-icon .svg {width:32px;height:32px;}
+@media(max-width:767.98px) {.dashboard-activity {gap:8px;}.activity-heading > time {white-space:normal;overflow-wrap:anywhere;}}
+
+.activity-actions {display:flex;align-items:center;align-self:flex-start;gap:8px;flex-shrink:0;}
+.activity-status {display:flex;align-items:center;justify-content:center;width:24px;height:32px;}
+.activity-status .svg {width:20px;height:20px;}
+.activity-status[data-state="succeeded"] {color:var(--color-green);}
+.activity-status[data-state="failed"] {color:var(--color-red);}
+.activity-status[data-state="running"] {color:var(--color-blue);}
+.activity-status[data-state="queued"],.activity-status[data-state="interrupted"] {color:var(--color-orange);}
+@media(max-width:767.98px) {.activity-actions {gap:4px;}.activity-task-icon {flex-basis:24px;width:24px;}.activity-task-icon .svg {width:24px;height:24px;}}
+
+.activity-actions > time {font-size:12px;white-space:nowrap;}
+@media(max-width:767.98px) {.activity-actions {flex-wrap:wrap;justify-content:flex-end;max-width:112px;}.activity-actions > time {flex-basis:100%;white-space:normal;text-align:right;}}
+
+.action-text-button.ui.button {display:inline-flex;align-items:center;justify-content:center;gap:8px;}
+.action-icon-button svg,.activity-task-link .svg {width:16px;height:16px;}
+.action-icon-button:disabled {opacity:.5;cursor:default;}
+.action-icon-button:disabled:hover {background:transparent;}
+[data-sync-action].is-pending svg,[data-refresh-action].is-pending svg {animation:action-sync-spin 1s linear infinite;}
+@keyframes action-sync-spin {to {transform:rotate(360deg);}}
+@media(prefers-reduced-motion:reduce) {[data-sync-action].is-pending svg,[data-refresh-action].is-pending svg {animation:none;}}
+@media(max-width:767.98px) {.action-icon-button {width:40px;height:40px;min-height:40px;}}
+.action-text-button svg {width:16px;height:16px;fill:currentColor;}
+.action-text-button .octicon {display:inline-flex;}
+/* Text actions use two sizes; icon-only controls keep their own hit areas. */
+.ui.button.action-small {font-size:12px;min-height:32px;padding:7px 16px;}
+.ui.basic.button:not(.red):not(.primary) {color:var(--color-text);}
+.ui.negative.button {background:var(--color-red);color:var(--color-white);}
+.ui.negative.button:hover {background:var(--color-red-dark-1);color:var(--color-white);}
+.ui.negative.button:active {background:var(--color-red-dark-2);}
+.restriction-hint > .svg {margin-inline-end:6px;vertical-align:-2px;}
+
+.restriction-hint:not(.message) {color:var(--color-text-light-2);}
+
+.ui.segment.list-filter-toolbar {padding:16px;}
+.ui.segment.list-filter-toolbar > .ui.form {margin:0;}
+
+[data-task-center] > [data-task-center-active] > .ui.attached.table.segment {border-top:0;}
+/* Keep the clear action inside the input without changing search-row height. */
+.ui.input.search-clear-field {position:relative;flex:1 1 0;min-width:0;}
+.ui.input.search-clear-field > input {flex:1 1 0;width:100%;min-width:0;padding-inline-end:36px;}
+.search-clear-button {position:absolute;inset-inline-end:6px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;min-height:24px;padding:0;margin:0;border:0;border-radius:4px;background:transparent;color:var(--color-text-light-2);}
+.search-clear-button:hover {background:var(--color-hover);color:var(--color-text);}
+.search-clear-field[data-search-clear-ready] input::-webkit-search-cancel-button {-webkit-appearance:none;appearance:none;}
+.search-clear-field[data-search-clear-ready] input::-ms-clear {display:none;}
+
+.team-card-content {display:grid;gap:12px;}
+.team-card-content .restriction-hint {margin:0;}
+.org-member-item > .org-member-restriction {flex-basis:100%;margin:0;}

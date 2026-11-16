@@ -1,0 +1,14 @@
+{{/* Adapted from Gitea templates/org/home.tmpl (MIT). */}}
+{{if .Org}}
+ {{template "org/header" .}}
+ {{if eq .OrgTab "members"}}{{template "org/member/members" .}}
+ {{else if eq .OrgTab "teams"}}{{template "org/team/teams" .}}
+ {{else if eq .OrgTab "settings"}}{{template "org/settings/options" .}}
+ {{else}}
+ <div class="org-profile-grid">
+  <section><form method="get" class="list-toolbar org-repo-search"><span class="ui input search-clear-field" data-search-clear="submit"><input type="search" name="q" value="{{.Search}}" placeholder="搜索仓库…" aria-label="搜索仓库">{{template "shared/search_clear" .}}</span><button class="ui icon button" aria-label="搜索">{{template "shared/menu_icon" "search"}}</button></form>
+  {{range .Repositories}}<article class="repository org-repository"><div class="org-repository-heading"><h2>{{template "repo/icon" .}}<a href="{{repoLink .Organization .Name .ID}}">{{.Name}}</a><span class="ui basic label">私有库</span></h2><span class="muted org-repository-time">最近成功：{{$.Time .LastSuccess}}</span></div><div class="org-repository-details">{{template "repo/list_remote" .Repository}}<p>{{$.State .Status}} · r{{.Revision}} · {{template "repo/size" .Repository}}</p></div></article>{{else}}<div class="empty">{{template "shared/menu_icon" "repo"}}<h2>暂无可访问的仓库</h2></div>{{end}}{{template "shared/pagination" .RepositoryPagination}}</section>
+  {{template "org/home_sidebar" .}}
+ </div>
+ {{end}}
+{{else}}<h1>我的组织</h1>{{range .Organizations}}<article class="repository"><h2><img loading="lazy" class="avatar" src="/avatars/organizations/{{.ID}}?size=80" width="40" height="40" alt=""><a href="{{orgLink .Name}}">{{.DisplayName}}</a><span class="ui basic label">私有</span></h2></article>{{else}}<p>暂无所属组织。</p>{{end}}{{end}}

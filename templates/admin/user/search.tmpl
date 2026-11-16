@@ -1,0 +1,27 @@
+{{/* Adapted from Gitea templates/admin/user/list.tmpl (MIT), pinned baseline. */}}
+<div class="ui attached segment list-filter-toolbar"><form id="user-list-search-form" class="ui form admin-users-filters" method="get" action="/-/admin/users">
+<input type="hidden" name="sort" value="{{.AdminUsers.Sort}}">
+<div class="ui action input admin-users-search"><span class="ui input search-clear-field" data-search-clear="submit"><input name="q" value="{{.AdminUsers.Keyword}}" placeholder="搜索用户…" aria-label="搜索用户名、姓名或邮箱">{{template "shared/search_clear" .}}</span><button class="ui icon button" aria-label="搜索">{{template "shared/menu_icon" "search"}}</button></div>
+<div class="ui secondary menu admin-users-menus">
+ <div class="ui dropdown item admin-users-filter-menu" data-menu-dropdown tabindex="0" aria-label="过滤用户"><span class="text">过滤{{if or .AdminUsers.Active .AdminUsers.Admin .AdminUsers.Auth}} <span class="filter-indicator" aria-label="已应用过滤条件"></span>{{end}}</span>{{template "shared/menu_icon" "triangle-down"}}
+ <div class="menu"><button type="button" class="item" data-user-filter-reset>重置过滤条件</button><div class="divider"></div>
+ <label class="item"><input type="radio" name="admin" value="1" {{if eq .AdminUsers.Admin "1"}}checked{{end}}>管理员</label>
+ <label class="item"><input type="radio" name="admin" value="0" {{if eq .AdminUsers.Admin "0"}}checked{{end}}>非管理员</label><div class="divider"></div>
+ <label class="item"><input type="radio" name="active" value="1" {{if eq .AdminUsers.Active "1"}}checked{{end}}>已启用</label>
+ <label class="item"><input type="radio" name="active" value="0" {{if eq .AdminUsers.Active "0"}}checked{{end}}>已停用</label>
+ <div class="divider"></div>
+ <label class="item"><input type="radio" name="auth" value="local" {{if eq .AdminUsers.Auth "local"}}checked{{end}}>本地</label>
+ <label class="item"><input type="radio" name="auth" value="ldap" {{if eq .AdminUsers.Auth "ldap"}}checked{{end}}>LDAP</label>
+ </div></div>
+ <div class="ui dropdown item admin-users-sort-menu org-sort-menu" data-menu-dropdown tabindex="0" aria-label="排序用户"><span class="text">排序</span>{{template "shared/menu_icon" "triangle-down"}}
+ <div class="menu">
+ <button type="button" class="item{{if eq .AdminUsers.Sort "oldest"}} active{{end}}" data-user-sort="oldest">最早加入</button>
+ <button type="button" class="item{{if eq .AdminUsers.Sort "newest"}} active{{end}}" data-user-sort="newest">最新加入</button>
+ <button type="button" class="item{{if eq .AdminUsers.Sort "alphabetically"}} active{{end}}" data-user-sort="alphabetically">用户名正序</button>
+ <button type="button" class="item{{if eq .AdminUsers.Sort "reversealphabetically"}} active{{end}}" data-user-sort="reversealphabetically">用户名倒序</button>
+ <button type="button" class="item{{if eq .AdminUsers.Sort "created"}} active{{end}}" data-user-sort="created">创建时间升序</button>
+ <button type="button" class="item{{if eq .AdminUsers.Sort "created-desc"}} active{{end}}" data-user-sort="created-desc">创建时间降序</button>
+ <button type="button" class="item{{if eq .AdminUsers.Sort "lastlogin"}} active{{end}}" data-user-sort="lastlogin">最近登录</button>
+ <button type="button" class="item{{if eq .AdminUsers.Sort "reverselastlogin"}} active{{end}}" data-user-sort="reverselastlogin">最久未登录</button>
+ </div></div>
+</div></form></div>

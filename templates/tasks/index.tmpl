@@ -1,0 +1,23 @@
+<section aria-label="任务中心">
+<h4 class="ui top attached header">任务（总计：<span data-task-center-total>{{.Pagination.Total}}</span>）</h4>
+<div class="ui attached segment list-filter-toolbar">
+<form id="task-list-search-form" class="ui form admin-users-filters task-center-filters" method="get" action="/tasks">
+<div class="ui action input admin-users-search"><span class="ui input search-clear-field" data-search-clear="submit"><input name="q" value="{{.Keyword}}" placeholder="搜索任务编号、组织或仓库…" aria-label="搜索任务编号、组织或仓库">{{template "shared/search_clear" .}}</span><button class="ui icon button" aria-label="搜索">{{template "shared/menu_icon" "search"}}</button></div>
+<div class="ui secondary menu admin-users-menus">
+<div class="ui dropdown item" data-menu-dropdown tabindex="0" aria-label="任务类型"><span class="text">类型{{if .Kind}} <span class="filter-indicator" aria-label="已筛选任务类型"></span>{{end}}</span>{{template "shared/menu_icon" "triangle-down"}}<div class="menu">
+<label class="item{{if eq .Kind ""}} active{{end}}"><input type="radio" name="kind" value="" {{if eq .Kind ""}}checked{{end}}>全部类型</label>
+<label class="item{{if eq .Kind "local"}} active{{end}}"><input type="radio" name="kind" value="local" {{if eq .Kind "local"}}checked{{end}}>本地迁移</label>
+<label class="item{{if eq .Kind "mirror"}} active{{end}}"><input type="radio" name="kind" value="mirror" {{if eq .Kind "mirror"}}checked{{end}}>镜像迁移</label>
+<label class="item{{if eq .Kind "sync"}} active{{end}}"><input type="radio" name="kind" value="sync" {{if eq .Kind "sync"}}checked{{end}}>镜像同步</label>
+<label class="item{{if eq .Kind "conversion"}} active{{end}}"><input type="radio" name="kind" value="conversion" {{if eq .Kind "conversion"}}checked{{end}}>转换镜像</label>
+</div></div>
+<div class="ui dropdown item" data-menu-dropdown tabindex="0" aria-label="任务状态"><span class="text">状态{{if .State}} <span class="filter-indicator" aria-label="已筛选任务状态"></span>{{end}}</span>{{template "shared/menu_icon" "triangle-down"}}<div class="menu">
+<label class="item{{if eq .State ""}} active{{end}}"><input type="radio" name="state" value="" {{if eq .State ""}}checked{{end}}>全部状态</label>
+<label class="item{{if eq .State "queued"}} active{{end}}"><input type="radio" name="state" value="queued" {{if eq .State "queued"}}checked{{end}}>排队中</label>
+<label class="item{{if eq .State "running"}} active{{end}}"><input type="radio" name="state" value="running" {{if eq .State "running"}}checked{{end}}>进行中</label>
+<label class="item{{if eq .State "succeeded"}} active{{end}}"><input type="radio" name="state" value="succeeded" {{if eq .State "succeeded"}}checked{{end}}>成功</label>
+<label class="item{{if eq .State "failed"}} active{{end}}"><input type="radio" name="state" value="failed" {{if eq .State "failed"}}checked{{end}}>失败</label>
+</div></div>
+</div></form></div>
+<div data-task-center>{{template "tasks/results" .}}</div><p data-task-center-error role="alert" hidden>刷新失败，请刷新页面重试。</p>
+</section>

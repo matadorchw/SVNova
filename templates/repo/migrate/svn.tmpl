@@ -1,0 +1,22 @@
+{{/* Adapted from Gitea templates/repo/migrate/git.tmpl (MIT); SVN sources and existing permissions. */}}
+<section class="repository new migrate migration-form-page" aria-label="迁移 SVN 仓库">
+ <div class="ui container medium-width">
+  <h3 class="ui top attached header">迁移 SVN 仓库</h3>
+  <div class="ui attached segment">
+   <form class="ui form left-right-form migration-form" data-api="/api/v1/repositories" data-next-location>
+    <div class="inline field"><label for="migration-kind">来源类型</label><div class="inline-right"><select name="Kind" id="migration-kind" aria-label="来源类型"><option value="mirror">远端 SVN 镜像</option>{{if .User.Admin}}<option value="local">本地 SVN 仓库</option>{{end}}</select></div></div>
+    <div class="inline required field"><label for="clone_addr">来源地址或路径</label><div class="inline-right"><input id="clone_addr" name="Source" required autofocus aria-describedby="migration-source-help"><p id="migration-source-help" class="muted">现有 SVN 仓库的 HTTP/HTTPS 根地址。</p></div></div>
+    <div class="inline field" data-kind="mirror"><label for="auth_username">远端用户名</label><div class="inline-right"><input id="auth_username" name="Username" autocomplete="off"></div></div>
+    <div class="inline field" data-kind="mirror"><label for="auth_password">远端密码</label><div class="inline-right"><input id="auth_password" name="Password" type="password" autocomplete="new-password"></div></div>
+    <div class="inline field" data-kind="mirror"><label for="migration_interval">同步间隔（秒）</label><div class="inline-right"><input id="migration_interval" name="Interval" data-number type="number" value="28800" min="0" step="600"><p class="muted">0 关闭自动同步；最小同步间隔为 600 秒。</p></div></div>
+    <div class="inline field static-field" data-kind="mirror"><label>证书校验</label><div class="inline-right"><label class="check"><input name="SkipTLS" type="checkbox">跳过 HTTPS 证书校验</label></div></div>
+    <div class="inline field static-field" data-kind="local" hidden><label>迁移确认</label><div class="inline-right"><label class="check"><input name="SourceStopped" type="checkbox" required disabled>已停止原服务访问，确认移动仓库到 SVNova 专有目录</label></div></div>
+    <hr>
+    <div class="inline required field"><label for="migration_org">归属组织</label><div class="inline-right"><select id="migration_org" name="OrgID" data-number required aria-label="归属组织"><option value="" disabled {{if not .MigrationOrg}}selected{{end}}>选择组织</option>{{range .Organizations}}{{if .CanManage}}<option value="{{.ID}}" {{if eq $.MigrationOrg .ID}}selected{{end}}>{{.Name}}</option>{{end}}{{end}}</select></div></div>
+    <div class="inline required field"><label for="repo_name">仓库名称</label><div class="inline-right"><input id="repo_name" name="Name" data-name-validation="仓库名称" required pattern="[a-zA-Z0-9][a-zA-Z0-9_.\-]{0,79}" maxlength="80"><p class="muted">根据来源地址或路径自动建议，可自行修改。使用字母、数字、点、下划线或连字符。</p></div></div>
+    <div class="inline field static-field"><label>可见性</label><div class="inline-right">私有（仅授权的组织成员可访问）</div></div>
+    <div class="inline field"><label></label><div class="inline-right"><div class="migration-submit"><button class="ui primary button">迁移仓库</button><a class="ui button" href="/">取消</a></div></div></div>
+   </form>
+  </div>
+ </div>
+</section>

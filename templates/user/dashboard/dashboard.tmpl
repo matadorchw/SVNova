@@ -1,0 +1,10 @@
+{{/* Adapted from Gitea templates/user/dashboard/dashboard.tmpl, feeds and repolist (MIT). */}}
+<div class="dashboard-grid">
+ <section class="dashboard-main">
+  <div class="activity-heatmap-container"><div id="user-heatmap" class="is-loading" data-heatmap-url="{{.HeatmapURL}}" data-activity-pending="{{.Heatmap.Pending}}" aria-label="当前可访问仓库的迁移与同步活动图">正在加载活动统计…</div></div>
+  <div id="activity-index-status" role="status">{{if .Heatmap.Failed}}<p class="ui warning message">活动统计暂不可用，请稍后重试。</p>{{else if .Heatmap.Pending}}<p class="muted">有仓库迁移或同步任务正在进行，活动状态会自动更新。</p>{{end}}</div>
+  {{if .DateFilter}}<p>活动日期：{{.DateFilter}} <a href="{{.DashboardURL "date" "" "page" ""}}">清除日期筛选</a></p>{{end}}
+  {{template "user/dashboard/feeds" .}}
+ </section>
+ {{template "user/dashboard/repolist" .}}
+</div>

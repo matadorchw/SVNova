@@ -1,0 +1,22 @@
+{{/* Adapted from Gitea templates/org/settings/options.tmpl (MIT). */}}
+{{template "org/settings/layout_head" .}}
+<h4 class="ui top attached header">组织</h4>
+<div class="ui attached segment"><form class="ui form" data-api="/api/v1/organizations/{{.Org.ID}}/settings">
+ <div class="field"><label for="full_name">组织全名</label><input id="full_name" name="FullName" value="{{.Org.FullName}}" maxlength="100"></div>
+ <div class="field"><label for="org_email">联系邮箱</label><input id="org_email" name="Email" type="email" value="{{.Org.Email}}" maxlength="254"></div>
+ <div class="field"><label for="description">组织描述</label><textarea id="description" name="Description" rows="2" maxlength="255">{{.Org.Description}}</textarea></div>
+ <div class="field"><label for="website">网站</label><input id="website" name="Website" type="url" value="{{.Org.Website}}" maxlength="255"></div>
+ <div class="field"><label for="location">所在地区</label><input id="location" name="Location" value="{{.Org.Location}}" maxlength="50"></div>
+ <p class="muted">组织保持私有；管理权限由 Owners 团队管理，仓库访问权限通过团队授权。</p>
+ <button class="ui primary button">更新组织设置</button>
+</form></div>
+<h4 class="ui top attached header">危险操作</h4>
+<div class="ui attached segment"><p>删除组织将永久移除组织、团队和成员关系。组织内仍有仓库时无法删除。</p><button type="button" class="ui basic red button" id="open-delete-organization">删除组织</button></div>
+<dialog id="delete-organization-dialog" class="leave-organization-dialog delete-organization-dialog" aria-labelledby="delete-organization-title">
+ <div class="leave-organization-heading" id="delete-organization-title">删除当前组织</div>
+ <form class="ui form" data-api="/api/v1/organizations/{{.Org.ID}}/delete" data-next="/" id="delete-organization-form">
+  <div class="leave-organization-content"><div class="ui warning message"><ul><li>此操作<strong>无法</strong>被回滚。</li><li>此操作将永久删除 <strong>{{.Org.Name}}</strong> 的团队和成员关系。</li><li>组织内仍有仓库时无法删除，请先处理全部仓库。</li></ul></div><p>输入组织名称以确认： <strong class="danger">{{.Org.Name}}</strong></p><div class="required field"><label for="delete-organization-name">组织名称</label><input id="delete-organization-name" name="Name" required autocomplete="off" data-org-name="{{.Org.Name}}"></div><p role="alert" class="ui negative message" data-delete-error hidden></p></div>
+  <div class="leave-organization-actions"><button class="ui button" type="button" data-delete-cancel>取消操作</button><button class="ui red button" type="submit">删除当前组织</button></div>
+ </form>
+</dialog>
+{{template "org/settings/layout_footer" .}}

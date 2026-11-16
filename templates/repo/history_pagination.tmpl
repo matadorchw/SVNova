@@ -1,0 +1,7 @@
+{{/* Gitea basic button styling; SVN revision cursors replace page numbers. */}}
+{{if or .History.NewerCursor .History.OlderCursor}}
+<nav class="repository-history-pagination" aria-label="修订历史分页">
+ {{if .History.NewerCursor}}<a class="ui basic button action-small" rel="prev" href="{{.HistoryURL .History.NewerCursor "newer"}}">较新记录</a>{{end}}
+ {{if .History.OlderCursor}}<a class="ui basic button action-small" rel="next" href="{{.HistoryURL .History.OlderCursor "older"}}">更早记录</a>{{end}}
+</nav>
+{{end}}

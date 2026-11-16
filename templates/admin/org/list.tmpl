@@ -1,0 +1,19 @@
+{{/* Adapted from Gitea templates/admin/org/list.tmpl (MIT). */}}
+<div class="admin-setting-content">
+ <h4 class="ui top attached header org-list-header">组织管理（总计：{{len .Organizations}}）<a class="ui primary button action-small" href="/org/create">创建新的组织</a></h4>
+ <div class="ui attached segment org-list-toolbar list-filter-toolbar">
+  <form class="ui form admin-users-filters" method="get">
+   <input type="hidden" name="sort" value="{{.Sort}}">
+   <div class="ui action input admin-users-search"><span class="ui input search-clear-field" data-search-clear="submit"><input name="q" value="{{.Search}}" placeholder="搜索组织…" aria-label="搜索组织">{{template "shared/search_clear" .}}</span><button class="ui icon button" aria-label="搜索">{{template "shared/menu_icon" "search"}}</button></div>
+   <div class="ui secondary menu admin-users-menus"><div class="ui dropdown item admin-users-sort-menu org-sort-menu" data-menu-dropdown tabindex="0" aria-label="排序组织"><span class="text">排序</span>{{template "shared/menu_icon" "triangle-down"}}<div class="menu">
+    <a class="item{{if eq .Sort "oldest"}} active{{end}}" href="?sort=oldest&amp;q={{urlquery .Search}}">最早创建</a>
+    <a class="item{{if eq .Sort "newest"}} active{{end}}" href="?sort=newest&amp;q={{urlquery .Search}}">最近创建</a>
+    <a class="item{{if eq .Sort "name"}} active{{end}}" href="?sort=name&amp;q={{urlquery .Search}}">名称升序</a>
+    <a class="item{{if eq .Sort "name-desc"}} active{{end}}" href="?sort=name-desc&amp;q={{urlquery .Search}}">名称降序</a>
+    <a class="item{{if eq .Sort "created"}} active{{end}}" href="?sort=created&amp;q={{urlquery .Search}}">创建时间升序</a>
+    <a class="item{{if eq .Sort "created-desc"}} active{{end}}" href="?sort=created-desc&amp;q={{urlquery .Search}}">创建时间降序</a>
+   </div></div></div>
+  </form>
+ </div>
+ <div class="ui attached table segment table-scroll"><table class="ui very basic table unstackable"><thead><tr><th{{if eq .Sort "oldest"}} aria-sort="ascending"{{else if eq .Sort "newest"}} aria-sort="descending"{{end}}><a class="org-sort-heading" href="?sort={{if eq .Sort "oldest"}}newest{{else}}oldest{{end}}&amp;q={{urlquery .Search}}" title="切换ID排序">ID{{if eq .Sort "oldest"}} {{template "shared/menu_icon" "triangle-up"}}{{else if eq .Sort "newest"}} {{template "shared/menu_icon" "triangle-down"}}{{end}}</a></th><th{{if eq .Sort "name"}} aria-sort="ascending"{{else if eq .Sort "name-desc"}} aria-sort="descending"{{end}}><a class="org-sort-heading" href="?sort={{if eq .Sort "name"}}name-desc{{else}}name{{end}}&amp;q={{urlquery .Search}}" title="切换名称排序">名称{{if eq .Sort "name"}} {{template "shared/menu_icon" "triangle-up"}}{{else if eq .Sort "name-desc"}} {{template "shared/menu_icon" "triangle-down"}}{{end}}</a></th><th>团队</th><th>成员</th><th>仓库数</th><th{{if eq .Sort "created"}} aria-sort="ascending"{{else if eq .Sort "created-desc"}} aria-sort="descending"{{end}}><a class="org-sort-heading" href="?sort={{if eq .Sort "created"}}created-desc{{else}}created{{end}}&amp;q={{urlquery .Search}}" title="切换创建时间排序">创建时间{{if eq .Sort "created"}} {{template "shared/menu_icon" "triangle-up"}}{{else if eq .Sort "created-desc"}} {{template "shared/menu_icon" "triangle-down"}}{{end}}</a></th><th></th></tr></thead><tbody>{{range .Organizations}}<tr><td>{{.ID}}</td><td><a href="{{orgLink .Name}}">{{.Name}}</a> <span class="org-private-icon" title="私有组织" aria-label="私有组织">{{template "shared/menu_icon" "lock"}}</span></td><td>{{.TeamCount}}</td><td>{{.MemberCount}}</td><td>{{.RepoCount}}</td><td>{{if .Created}}{{$.Time .Created}}{{else}}—{{end}}</td><td><a href="{{orgSection .Name "settings"}}" title="编辑组织" aria-label="编辑 {{.Name}}">{{template "shared/menu_icon" "pencil"}}</a></td></tr>{{else}}<tr><td colspan="7">没有匹配的组织</td></tr>{{end}}</tbody></table></div>
+</div>

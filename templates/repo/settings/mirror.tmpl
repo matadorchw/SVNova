@@ -1,0 +1,25 @@
+{{/* Adapted from Gitea templates/repo/settings/options.tmpl mirror settings table (MIT). */}}
+<h4 class="ui top attached header">镜像设置</h4>
+<div class="ui attached segment">
+ <p>自动拉取远端 SVN 仓库的修订和修订属性。</p>
+ <div class="table-scroll"><table class="ui table mirror-settings-table">
+  <thead><tr><th>镜像库</th><th>方向</th><th>最后更新</th><th aria-label="操作"></th></tr></thead>
+  <tbody><tr>
+   <td class="mirror-source"><a href="{{.Repo.Remote}}" rel="noreferrer">{{.Repo.Remote}}</a></td><td>拉取</td><td>{{if .Repo.LastSuccess}}{{.Time .Repo.LastSuccess}}{{else}}尚未成功同步{{end}}</td>
+   <td class="mirror-sync-action">{{if and (ne .Repo.Status "ready") .Migration.CanRetry (not .RepositoryTaskActive)}}<form class="ui form" data-api="{{repoLink .Repo.Organization .Repo.Name .Repo.ID}}/settings/migrate/retry" data-next="{{repoLink .Repo.Organization .Repo.Name .Repo.ID}}"><button class="ui basic button action-text-button action-small">{{template "shared/menu_icon" "issue-reopened"}}<span>重试迁移</span></button></form>{{else}}<form class="ui form" data-api="/api/v1/repositories/{{.Repo.ID}}/sync" data-next="{{.Link "tasks" "" .Revision}}"><button class="ui basic button action-text-button action-small" data-sync-action {{if or .Repo.Halted .RepositoryTaskActive (ne .Repo.Status "ready")}}disabled{{end}}>{{template "shared/menu_icon" "sync"}}<span>立即同步</span></button></form>{{end}}</td>
+  </tr><tr><td colspan="4">
+   {{if .RepositoryTaskActive}}<p class="ui info message restriction-hint">{{template "shared/menu_icon" "info"}}同步任务正在排队或执行中。<a href="{{.Link "tasks" "" .Revision}}">查看任务记录</a></p>{{else if .Repo.Halted}}<p class="ui warning message restriction-hint">{{template "shared/menu_icon" "info"}}仓库完整性检查异常，自动与手动同步已停止。<a href="{{.Link "tasks" "" .Revision}}">查看任务记录</a></p>{{else if .Migration.CanRetry}}<p class="ui warning message restriction-hint">{{template "shared/menu_icon" "info"}}首次迁移失败。保存镜像设置后，点击“重试迁移”重新执行。<a href="{{.Link "tasks" "" .Revision}}">查看失败原因</a></p>{{else if ne .Repo.Status "ready"}}<p class="muted restriction-hint">{{template "shared/menu_icon" "info"}}首次迁移完成后可手动同步。<a href="{{.Link "tasks" "" .Revision}}">查看任务记录</a></p>{{end}}
+   <form class="ui form" data-api="/api/v1/repositories/{{.Repo.ID}}/settings">
+    <div class="field"><label for="repo-interval">同步间隔（秒）</label><input id="repo-interval" name="Interval" data-number type="number" min="0" step="600" value="{{.Repo.Interval}}"><p class="muted">0 关闭自动同步；最小同步间隔为 600 秒。</p></div>
+    <div class="required field"><label for="repo-remote">镜像地址</label><input id="repo-remote" name="Remote" value="{{.Repo.Remote}}" required></div>
+    <details class="field mirror-auth" {{if .Repo.Username}}open{{end}}><summary>需要认证</summary>
+     <div class="field"><label for="repo-username">用户名</label><input id="repo-username" name="Username" value="{{.Repo.Username}}" autocomplete="off"></div>
+     <div class="field"><label class="check"><input name="ReplacePassword" type="checkbox">替换保存的密码</label></div>
+     <div class="field"><label for="repo-password">新密码</label><input id="repo-password" name="Password" type="password" autocomplete="new-password"></div>
+    </details>
+    <div class="field"><label class="check"><input name="SkipTLS" type="checkbox" {{if .Repo.SkipTLS}}checked{{end}}>跳过 HTTPS 证书校验</label></div>
+    <div class="field"><button class="ui primary button">更新镜像设置</button></div>
+   </form>
+  </td></tr></tbody>
+ </table></div>
+</div>

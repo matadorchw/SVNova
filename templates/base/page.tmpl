@@ -1,0 +1,8 @@
+{{/* Gitea 146cc3eec57174711eac0e0a0c7b38670c6e3922: templates/base/head, base/footer.tmpl. MIT; SVN adaptation, see docs/upstream/reuse-manifest.md. */}}
+{{template "base/head" .}}
+
+{{if eq .Page "repositories"}}{{template "user/dashboard/navbar" .}}{{end}}
+{{if and (eq .Page "repository") .Repo}}{{template "repo/header" .}}{{end}}
+<main class="page-content ui container{{if .IsAdminPage}} fluid admin-page{{end}}{{if eq .Page "repository"}} repository-container{{else if eq .Page "migrate"}} migration-container{{end}}"><div id="action-message" role="alert" hidden></div>{{if .Error}}<div class="ui negative message">{{.Error}}</div>{{end}}
+{{if eq .Page "task-center"}}{{template "tasks/index" .TaskCenter}}{{else if eq .Page "activity-trend"}}{{template "user/activity" .}}{{else if eq .Page "repositories"}}{{template "user/dashboard/dashboard" .}}{{else if eq .Page "repository"}}{{template "repo/home" .}}{{else if eq .Page "user-profile"}}{{template "user/profile" .}}{{else if eq .Page "settings-organizations"}}{{template "user/settings/organization" .}}{{else if eq .Page "profile"}}{{template "user/settings/profile" .}}{{else if eq .Page "account"}}{{template "user/settings/account" .}}{{else if eq .Page "migrate"}}{{template "repo/migrate/svn" .}}{{else if eq .Page "org/create"}}{{template "org/create" .}}{{else if eq .Page "organizations"}}{{template "org/home" .}}{{else}}{{template "admin/dashboard" .}}{{end}}
+</main>{{template "base/footer" .}}

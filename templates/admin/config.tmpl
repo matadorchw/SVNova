@@ -1,0 +1,2 @@
+{{/* Gitea admin attached settings panel, adapted for the supported site name. */}}
+<div class="admin-setting-content"><h4 class="ui top attached header">站点设置</h4><div class="ui attached segment"><form class="ui form" data-api="/api/v1/admin/site"><div class="required field"><label for="site-name">站点名称</label><input id="site-name" name="SiteName" value="{{.SiteName}}" required maxlength="80"></div><button class="ui primary button">保存设置</button></form></div></div>

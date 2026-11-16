@@ -1,0 +1,6 @@
+{{/* Adapted from the sidebar in Gitea templates/org/home.tmpl (MIT). */}}
+<aside class="org-sidebar">
+ {{if .Org.CanManage}}<a class="ui primary button org-migrate" href="/repo/migrate?org={{.Org.ID}}">迁移外部仓库</a>{{end}}
+ <section><h4 class="ui top attached header"><a href="{{.OrgSection "members"}}">成员 <span>{{len .Members}}</span></a></h4><div class="ui attached segment org-member-avatars">{{range .MemberPreview}}<a href="{{$.OrgSection "members"}}" title="{{$.Username .UserID}}"><img loading="lazy" class="avatar" src="/avatars/users/{{.UserID}}?org={{$.Org.ID}}&amp;size=64" width="32" height="32" alt="{{$.Username .UserID}}"></a>{{end}}</div></section>
+ <section><h4 class="ui top attached header"><a href="{{.OrgSection "teams"}}">团队 <span>{{len .Teams}}</span></a></h4><div class="ui attached segment">{{range .TeamStats}}<div class="org-team-summary"><a href="{{teamLink $.Org.Name .Name .ID}}">{{.Name}}</a><p>{{.MemberCount}} 名成员 · {{.RepoCount}} 个可访问仓库</p></div>{{end}}{{if .Org.CanManage}}<a class="ui primary button" href="{{.OrgSection "teams"}}/new">新建团队</a>{{end}}</div></section>
+ </aside>

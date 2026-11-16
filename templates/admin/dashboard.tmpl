@@ -1,0 +1,4 @@
+{{/* Adapted from Gitea templates/admin/dashboard.tmpl (MIT), fixed baseline; see reuse manifest. */}}
+{{template "admin/layout_head" .}}
+{{if eq .Page "admin/notifications"}}{{template "admin/notifications" .}}{{else if eq .Page "admin/organizations"}}{{template "admin/org/list" .}}{{else if eq .Page "admin/site"}}{{template "admin/config" .}}{{else if eq .Page "admin/users/new"}}{{template "admin/user/new" .}}{{else if eq .Page "admin/users/details"}}{{template "admin/user/details" .}}{{else if eq .Page "admin/users/edit"}}{{template "admin/user/edit" .}}{{else if eq .Page "admin/users"}}{{template "admin/user/list" .}}{{else if eq .Page "admin/ldap"}}{{template "admin/auth/edit" .}}{{else if eq .Page "admin/ldap/history"}}{{template "admin/auth/sync_history" .}}{{else}}{{template "admin/auth/edit" .}}{{end}}
+{{template "admin/layout_footer" .}}

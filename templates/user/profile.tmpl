@@ -1,0 +1,16 @@
+{{/* Adapted from Gitea user/profile.tmpl and shared/user/profile_big_avatar.tmpl (MIT). */}}
+<div class="user-profile-layout">
+ <aside class="user-profile-card">
+  <div class="user-profile-identity"><img loading="lazy" src="{{if eq .ProfileUser.ID .User.ID}}/avatars/current{{else}}/avatars/users/{{.ProfileUser.ID}}?size=512{{end}}" width="256" height="256" alt="用户头像"><h2>{{if .ProfileUser.DisplayName}}{{.ProfileUser.DisplayName}}{{else}}{{.ProfileUser.Name}}{{end}}</h2><div>{{.ProfileUser.Name}}</div></div>
+  <div class="user-profile-detail">{{template "shared/menu_icon" "mail"}}{{if .ProfileUser.Email}}<a href="mailto:{{.ProfileUser.Email}}">{{.ProfileUser.Email}}</a>{{else}}<span class="muted">未设置邮箱</span>{{end}}</div>
+  <div class="user-profile-detail">{{template "shared/menu_icon" "person"}}<span>{{if .ProfileUser.LDAPAccount}}LDAP 账户{{else}}本地账户{{end}}</span></div>
+  {{if .Organizations}}<div class="user-profile-detail">{{range .Organizations}}<a class="user-profile-org" href="/org/{{.Name}}" title="{{.Name}}" aria-label="{{.Name}}"><img loading="lazy" class="avatar" src="/avatars/organizations/{{.ID}}?size=56" width="28" height="28" alt="{{.Name}}"></a>{{end}}</div>{{end}}
+ </aside>
+ <section class="user-profile-repositories">
+  <nav class="ui secondary pointing menu" aria-label="个人主页"><a class="active item" href="/user/profile?user_id={{.ProfileUser.ID}}">{{template "shared/menu_icon" "repo"}}仓库列表</a></nav>
+  <form class="ui form user-profile-search" method="get"><input type="hidden" name="sort" value="{{.Sort}}"><input type="hidden" name="user_id" value="{{.ProfileUser.ID}}"><div class="ui fluid action input"><span class="ui input search-clear-field" data-search-clear="submit"><input name="q" type="search" value="{{.Search}}" placeholder="搜索仓库…" aria-label="搜索仓库">{{template "shared/search_clear" .}}</span><button class="ui icon button" aria-label="搜索">{{template "shared/menu_icon" "search"}}</button></div></form>
+  <div class="ui secondary menu"><a class="item{{if eq .Sort "name"}} active{{end}}" href="{{.ProfileListURL "name" 1}}">名称升序</a><a class="item{{if eq .Sort "name-desc"}} active{{end}}" href="{{.ProfileListURL "name-desc" 1}}">名称降序</a><span class="item">{{.ProfilePagination.Total}} 个仓库</span></div>
+  <div class="user-profile-results">{{range .Repositories}}<article class="repository"><h2><a href="{{repoLink .Organization .Name .ID}}">{{if eq .Kind "mirror"}}{{template "shared/menu_icon" "mirror"}}{{else}}{{template "shared/menu_icon" "repo"}}{{end}} {{.Organization}}/{{.Name}}</a></h2>{{template "repo/list_remote" .Repository}}<p class="muted">{{if eq .Kind "mirror"}}镜像仓库{{else}}本地仓库{{end}} · {{if eq .Status "ready"}}就绪{{else if eq .Status "failed"}}失败{{else}}处理中{{end}} · {{template "repo/size" .Repository}}{{if .LastSuccess}} · 最近成功：{{$.Time .LastSuccess}}{{end}}</p></article>{{else}}<p>未找到匹配结果</p>{{end}}</div>
+  {{template "shared/pagination" .ProfilePagination}}
+ </section>
+</div>

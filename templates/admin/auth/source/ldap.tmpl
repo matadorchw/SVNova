@@ -1,0 +1,23 @@
+{{/* Adapted from Gitea templates/admin/auth/source/ldap.tmpl, fixed baseline (MIT). Only supported mappings are exposed. */}}
+<div class="field"><label>认证类型</label><p>LDAP（via BindDN）</p></div>
+
+<div class="required field"><label for="auth-protocol">安全协议</label><select id="auth-protocol" name="Protocol"><option value="ldaps" {{if eq .LDAPProtocol "ldaps"}}selected{{end}}>LDAPS</option><option value="starttls" {{if eq .LDAPProtocol "starttls"}}selected{{end}}>LDAP + StartTLS</option></select></div>
+<div class="required field"><label for="auth-host">主机</label><input id="auth-host" name="Host" value="{{.LDAPHost}}" placeholder="ldap.example.com" required></div>
+<div class="required field"><label for="auth-port">端口</label><input id="auth-port" name="Port" data-number type="number" min="1" max="65535" value="{{.LDAPPort}}" required></div>
+<div class="inline field"><label class="check"><input name="SkipVerify" type="checkbox" {{if .LDAP.SkipVerify}}checked{{end}}><strong class="text-bold">忽略 TLS 验证</strong></label></div>
+<div class="field"><label for="auth-bind">绑定 DN</label><input id="auth-bind" name="BindDN" value="{{.LDAP.BindDN}}" placeholder="cn=Search,dc=example,dc=com"></div>
+{{if .LDAP.ID}}<div class="field"><label class="check"><input name="ReplacePassword" type="checkbox">替换保存的绑定密码</label></div>{{end}}
+<div class="field"><label for="auth-password">绑定密码</label><input id="auth-password" name="Password" type="password" autocomplete="new-password"></div>
+<div class="required field"><label for="auth-base">用户搜索基准 DN</label><input id="auth-base" name="BaseDN" value="{{.LDAP.BaseDN}}" required></div>
+<div class="required field"><label for="auth-filter">用户过滤器</label><input id="auth-filter" name="Filter" value="{{.LDAP.Filter}}" required></div>
+<div class="required field"><label for="auth-username">用户名属性</label><input id="auth-username" name="UsernameAttribute" value="{{.LDAP.UsernameAttribute}}" required></div>
+<div class="required field"><label for="auth-key">稳定身份属性</label><input id="auth-key" name="KeyAttribute" value="{{.LDAP.KeyAttribute}}" required><p class="muted">AD 建议 objectGUID，普通 LDAP 可使用 entryUUID。修改地址、搜索基准或身份映射前，需确认清理LDAP 用户。</p></div>
+<div class="field"><label for="auth-display">显示名称属性</label><input id="auth-display" name="NameAttribute" value="{{.LDAP.NameAttribute}}"></div>
+<div class="field"><label for="auth-email">电子邮箱属性</label><input id="auth-email" name="EmailAttribute" value="{{.LDAP.EmailAttribute}}" placeholder="mail"></div>
+
+
+<div class="inline field"><label class="check"><input id="auth-paged" name="UsePagedSearch" type="checkbox" {{if .LDAP.UsePagedSearch}}checked{{end}}><strong>使用分页搜索</strong></label></div>
+<div class="required field" data-ldap-page-size {{if not .LDAP.UsePagedSearch}}hidden{{end}}><label for="auth-page-size">分页大小</label><input id="auth-page-size" name="SearchPageSize" data-number type="number" min="1" max="1000" value="{{.LDAP.SearchPageSize}}" {{if not .LDAP.UsePagedSearch}}disabled{{end}} required></div>
+<div class="inline field"><label class="check"><input name="AllowDeactivateAll" type="checkbox" {{if .LDAP.AllowDeactivateAll}}checked{{end}}><strong>允许在搜索结果为空时停用所有用户</strong></label></div>
+<div class="inline field"><label class="check"><input name="SyncEnabled" type="checkbox" {{if .LDAP.SyncEnabled}}checked{{end}}><strong>启用用户同步</strong></label></div>
+<div class="inline field"><label class="check"><input name="Enabled" type="checkbox" {{if .LDAP.Enabled}}checked{{end}}><strong>启用 LDAP 认证</strong></label></div>

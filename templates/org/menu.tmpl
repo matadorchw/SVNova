@@ -1,0 +1,7 @@
+{{/* Adapted from Gitea templates/org/menu.tmpl (MIT); only available SVN capabilities. */}}
+<nav class="ui secondary pointing menu org-tabs" aria-label="组织导航">
+ <a class="item {{if eq .OrgTab "repositories"}}active{{end}}" href="{{.OrgURL}}">{{template "shared/menu_icon" "repo"}}仓库列表 <span class="ui tiny label">{{.OrgRepoCount}}</span></a>
+ <a class="item {{if eq .OrgTab "members"}}active{{end}}" href="{{.OrgSection "members"}}">{{template "shared/menu_icon" "person"}}成员 <span class="ui tiny label">{{len .Members}}</span></a>
+ <a class="item {{if eq .OrgTab "teams"}}active{{end}}" href="{{.OrgSection "teams"}}">{{template "shared/menu_icon" "people"}}团队 <span class="ui tiny label">{{len .Teams}}</span></a>
+ {{if .Org.CanManage}}<a class="item org-settings-link {{if eq .OrgTab "settings"}}active{{end}}" href="{{.OrgSection "settings"}}">{{template "shared/menu_icon" "gear"}}设置</a>{{end}}
+</nav>

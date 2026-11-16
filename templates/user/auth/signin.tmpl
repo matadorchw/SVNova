@@ -1,0 +1,11 @@
+{{/* Gitea 146cc3eec57174711eac0e0a0c7b38670c6e3922: templates/user/auth/signin.tmpl. MIT; SVN adaptation, see docs/upstream/reuse-manifest.md. */}}
+{{template "base/head" .}}
+<div role="main" aria-label="登录" class="page-content user signin">
+	<div class="ui middle very relaxed page grid">
+		{{/* these styles are quite tricky and should also apply to the signup and link_account pages */}}
+		<div class="column signin-column">
+			{{template "user/auth/signin_inner" .}}
+		</div>
+	</div>
+</div>
+{{template "base/footer" .}}

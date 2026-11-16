@@ -1,0 +1,14 @@
+{{/* Gitea activity-feed layout adapted to SVN migration and synchronization executions. */}}
+<div id="activity-feed">
+ {{range .Feed}}<article class="dashboard-activity">
+ <a class="activity-organization-avatar" href="{{orgLink .Organization}}" aria-label="{{.Organization}}"><img loading="lazy" class="avatar" src="/avatars/organizations/{{.OrganizationID}}?size=80" width="40" height="40" alt=""></a>
+ <div class="activity-body"><div class="activity-heading"><div class="activity-title"><a href="{{orgLink .Organization}}">{{.Organization}}</a><span>对</span><a href="{{.RepoURL}}">{{.Repository}}</a><span>执行了</span><strong>{{.KindText}}（{{.TriggerText}}）</strong></div></div>
+ {{if .Result}}<p class="activity-message">{{.Result}}</p>{{end}}</div>
+ <div class="activity-actions"><time class="muted activity-time" title="{{$.Time .Timestamp}}">{{$.Time .Timestamp}}</time><div class="activity-task-icon" role="img" aria-label="{{.KindText}}" title="{{.KindText}}">{{template "shared/menu_icon" .Icon}}</div><span class="activity-status" data-state="{{.State}}" role="img" aria-label="{{.StateText}}" title="{{.StateText}}">{{template "shared/menu_icon" .StateIcon}}</span><a class="activity-task-link action-icon-button" href="{{.TaskURL}}" aria-label="查看任务记录" title="查看任务记录">{{template "shared/menu_icon" "tasklist"}}</a></div>
+ </article>{{else}}<div class="empty"><h2>暂无 SVN 仓库活动</h2><p>仅展示当前有权访问仓库的迁移、同步及重试记录。</p></div>{{end}}
+ {{if or (gt .FeedPage 1) .FeedHasNext}}<nav class="dashboard-pagination" aria-label="活动分页"><div class="ui borderless pagination menu dashboard-feed-pager">
+ {{if gt .FeedPage 1}}<a class="item" href="{{.PreviousFeedURL}}">{{template "shared/menu_icon" "chevron-left"}}上一页</a>{{else}}<span class="disabled item" aria-disabled="true">{{template "shared/menu_icon" "chevron-left"}}上一页</span>{{end}}
+ <span class="item" aria-current="page">{{.FeedPage}}</span>
+ {{if .FeedHasNext}}<a class="item" href="{{.NextFeedURL}}">下一页{{template "shared/menu_icon" "chevron-right"}}</a>{{else}}<span class="disabled item" aria-disabled="true">下一页{{template "shared/menu_icon" "chevron-right"}}</span>{{end}}
+ </div></nav>{{end}}
+</div>

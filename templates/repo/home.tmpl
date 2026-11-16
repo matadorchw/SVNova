@@ -1,0 +1,10 @@
+{{/* Adapted from Gitea templates/repo/home.tmpl (MIT), fixed baseline; see reuse manifest. */}}
+{{if .Repo}}
+<div role="main" aria-label="仓库" class="page-content repository file list">
+	{{if or (eq .Tab "tree") (eq .Tab "file")}}<div class="repo-file-layout">{{end}}
+	<div class="repo-home-filelist">
+		{{template "repo/view_content" .}}
+	</div>
+	{{if or (eq .Tab "tree") (eq .Tab "file")}}{{template "repo/file_sidebar" .}}</div>{{end}}
+</div>
+{{end}}

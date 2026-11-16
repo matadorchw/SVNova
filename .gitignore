@@ -1,0 +1,44 @@
+.tools/
+data/
+dist/
+node_modules/
+*.exe
+*.test
+coverage.out
+data-fresh-*/
+# Local runtime workspaces contain databases, repositories and encryption keys.
+/work-fresh-*/
+/work/
+/repositories/
+/custom/
+/log/
+/instance.lock
+
+# Local environment and editor/tool state.
+.env
+.env.*
+!.env.example
+!.env.sample
+/.codex/
+/.agents/
+/.aws/
+/.idea/
+/.vscode/
+*.log
+*.tmp
+*.swp
+Thumbs.db
+.DS_Store
+
+# Local databases and private credentials (never source artifacts).
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.key
+*.pfx
+*.p12
+/app.ini
+/config.json

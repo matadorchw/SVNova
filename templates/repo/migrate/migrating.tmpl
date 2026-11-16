@@ -1,0 +1,13 @@
+{{/* Adapted from Gitea templates/repo/migrate/migrating.tmpl (MIT), fixed baseline. */}}
+<section class="migration-status home" aria-label="仓库迁移状态" data-migration-panel data-status-url="{{repoLink .Repo.Organization .Repo.Name .Repo.ID}}/-/migrate/status">
+ <div class="migration-image" id="repo_migrating" {{if eq .Migration.Status 3}}hidden{{end}}><img class="migration-loading-logo" src="/assets/logo.svg" width="200" height="200" alt="正在迁移"></div>
+ <div class="migration-image" id="repo_migrating_failed_image" {{if ne .Migration.Status 3}}hidden{{end}}><svg class="danger" width="120" height="120" role="img" aria-label="迁移失败"><use href="/assets/img/octicons.svg#alert"></use></svg></div>
+ <div id="repo_migrating_progress" {{if eq .Migration.Status 3}}hidden{{end}}><p>正在迁移 SVN 仓库 {{.Repo.Organization}}/{{.Repo.Name}}</p><progress id="repo_migrating_revision_progress" max="100" {{if ge .Migration.Progress 0}}value="{{.Migration.Progress}}"{{end}} aria-label="当前校验阶段完成百分比"></progress><p id="repo_migrating_progress_message" role="status" aria-live="polite">{{.Migration.Message}}</p></div>
+ <div id="repo_migrating_failed" {{if ne .Migration.Status 3}}hidden{{end}}><p>迁移 SVN 仓库失败</p><p id="repo_migrating_failed_error" role="alert">{{.Migration.Message}}</p></div>
+ <div id="repo_migrating_connection" class="muted" role="status" hidden>状态暂不可用，正在重试…</div>
+ <div class="migration-actions">
+  <a class="ui basic button" href="{{.Link "tasks" "" .Revision}}">{{template "shared/menu_icon" "tasklist"}}<span>查看任务记录</span></a>
+  {{if and .Repo.CanManage (or (ne .Repo.Kind "local") .User.Admin)}}<form class="ui form" data-api="{{repoLink .Repo.Organization .Repo.Name .Repo.ID}}/settings/migrate/retry"><button id="repo_migrating_retry" class="ui basic button action-text-button" {{if not .Migration.CanRetry}}hidden{{end}}>{{template "shared/menu_icon" "issue-reopened"}}<span>重试</span></button></form>{{end}}
+  {{if .Repo.CanManage}}<a class="ui basic button" href="{{.Link "settings" "" .Revision}}">仓库设置</a>{{end}}
+ </div>
+</section>

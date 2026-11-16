@@ -1,0 +1,24 @@
+{{/* Adapted from Gitea templates/user/dashboard/navbar.tmpl (MIT). */}}
+<div class="secondary-nav dashboard-navbar">
+ <div class="ui secondary stackable menu">
+  <div class="item">
+   <details class="ui floating dropdown jump nav-dropdown">
+    <summary class="text" aria-label="切换控制面板用户">
+     <img loading="lazy" class="avatar" src="{{if .ContextOrg}}/avatars/organizations/{{.ContextOrg}}{{else}}/avatars/current{{end}}?size=48" width="24" height="24" alt="">
+     <span>{{.ContextName}}</span>
+     <svg width="14" height="14" aria-hidden="true"><use href="/assets/img/octicons.svg#triangle-down"></use></svg>
+    </summary>
+    <div class="menu context-user-switch">
+     <div class="header">切换控制面板用户</div>
+     <div class="scrolling menu">
+      <a class="{{if not .ContextOrg}}active selected {{end}}item" href="/" {{if not .ContextOrg}}aria-current="page"{{end}}><img loading="lazy" class="avatar" src="/avatars/current?size=56" width="28" height="28" alt=""><span>{{.User.Name}}</span></a>
+      {{range .Organizations}}
+      <a class="{{if eq $.ContextOrg .ID}}active selected {{end}}item" href="{{orgSection .Name "dashboard"}}" {{if eq $.ContextOrg .ID}}aria-current="page"{{end}}><img loading="lazy" class="avatar" src="/avatars/organizations/{{.ID}}?size=56" width="28" height="28" alt=""><span>{{.Name}}</span><span class="ui basic tiny horizontal label">私有</span></a>
+      {{end}}
+     </div>
+     {{if .User.Admin}}<a class="item context-create" href="/org/create"><svg width="16" height="16" aria-hidden="true"><use href="/assets/img/octicons.svg#plus"></use></svg>创建组织</a>{{end}}
+    </div>
+   </details>
+  </div>
+ </div>
+</div>

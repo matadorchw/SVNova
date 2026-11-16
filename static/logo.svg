@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">SVNova</title>
+  <defs>
+    <linearGradient id="nova-gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbb85a"/><stop offset="0.5" stop-color="#cba247"/><stop offset="1" stop-color="#dfbc65"/></linearGradient>
+    <linearGradient id="nova-navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#133449"/><stop offset="1" stop-color="#23495a"/></linearGradient>
+    <linearGradient id="nova-cyan" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#06e0e9"/><stop offset="1" stop-color="#00cbdc"/></linearGradient>
+  </defs>
+  <path fill="url(#nova-gold)" d="M132 33C110 5 72 5 43 27L75 21C34 44 11 86 12 136C13 111 20 96 30 82C9 148 34 217 113 241C64 207 50 173 54 125C57 89 78 60 109 47L132 33Z"/>
+  <path fill="url(#nova-navy)" d="M119 41L137 30L151 42L128 57L119 41ZM161 73C187 63 212 83 216 112L213 130L229 149Q233 153 226 157L219 160L220 168L215 174Q222 180 211 184L207 196Q203 202 191 198L171 191L159 211L126 190L137 158Q124 149 128 131L137 110L161 73ZM100 188L184 221L187 236L200 249L151 249Q112 239 93 216Z"/>
+  <path fill="url(#nova-gold)" d="M117 172C83 148 86 105 106 79C125 50 164 39 192 52Q211 58 218 74C238 77 248 104 236 128L229 108L226 119L207 112Q223 98 225 83C209 108 184 111 157 142Q157 117 181 94Q156 111 132 113Q116 135 117 172Z"/>
+  <path fill="url(#nova-cyan)" d="M186 109L221 121L217 133L176 120Z"/>
+  <path fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" d="M139 139Q127 120 117 132Q110 148 123 160L132 177"/>
+</svg>

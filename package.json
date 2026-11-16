@@ -1,0 +1,28 @@
+{
+  "name": "svnova",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "build": "node scripts/build-icons.mjs && vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "test:activity-trend": "node --experimental-strip-types --test scripts/test-activity-trend.mjs",
+    "test:task-center": "node --experimental-strip-types --test scripts/test-task-center.mjs",
+    "test:search-clear": "node --experimental-strip-types --test scripts/test-search-clear.mjs",
+    "test:repository-tasks": "node --experimental-strip-types --test scripts/test-repository-tasks.mjs"
+  },
+  "dependencies": {
+    "@primer/octicons": "19.28.1",
+    "echarts": "6.1.0",
+    "jquery": "4.0.0",
+    "vue": "3.5.24"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "@types/jquery": "4.0.1",
+    "@vitejs/plugin-vue": "6.0.7",
+    "typescript": "5.9.3",
+    "vite": "8.0.0",
+    "vue-tsc": "3.1.5"
+  }
+}

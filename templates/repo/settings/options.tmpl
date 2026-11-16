@@ -1,0 +1,22 @@
+{{/* Adapted from Gitea templates/repo/settings/options.tmpl (MIT); existing SVN settings only. */}}
+{{template "repo/settings/layout_head" .}}
+{{if eq .SettingsSection "basic"}}
+<h4 class="ui top attached header">基本设置</h4>
+<div class="ui attached segment">
+ <div class="ui form"><div class="field"><label for="repo-name">仓库名称</label><input id="repo-name" value="{{.Repo.Name}}" readonly></div></div>
+ <p class="muted">当前修订 r{{.Repo.Revision}}</p>
+</div>
+{{else if eq .SettingsSection "mirror"}}
+{{if eq .Repo.Kind "mirror"}}{{template "repo/settings/mirror" .}}{{else}}{{template "repo/settings/convert_mirror" .}}{{end}}
+{{else if eq .SettingsSection "danger"}}
+<h4 class="ui top attached error header">危险操作</h4>
+<div class="ui attached segment">
+ <h4>移除仓库</h4><p>默认保留磁盘文件；输入完整仓库名称确认。</p>
+ <form class="ui form" data-api="/api/v1/repositories/{{.Repo.ID}}" data-method="DELETE" data-next="/">
+  <div class="required field"><label for="repo-confirm">仓库名称</label><input id="repo-confirm" name="Confirm" required data-confirm="{{.Repo.Name}}"></div>
+  <div class="field"><label class="check"><input name="DeleteFiles" type="checkbox">同时永久删除仓库文件</label></div>
+  <div class="field"><button class="ui negative button">确认移除</button></div>
+ </form>
+</div>
+{{end}}
+{{template "repo/settings/layout_footer" .}}

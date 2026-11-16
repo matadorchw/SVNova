@@ -1,0 +1,1 @@
+<nav class="repo-path-breadcrumb" aria-label="仓库路径"><ol>{{range $i, $part := .RepositoryBreadcrumbs}}<li>{{if $i}}<span class="muted" aria-hidden="true">/</span>{{end}}{{if .Current}}<span class="repo-path-current" aria-current="page">{{.Name}}</span>{{else}}<a href="{{.URL}}">{{.Name}}</a>{{end}}</li>{{end}}</ol></nav>

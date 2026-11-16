@@ -1,0 +1,16 @@
+{{/* Gitea templates/base/head.tmpl: retained document and shared asset composition, adapted to SVNova's fixed Chinese locale and CSP. MIT. */}}
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="gitea-light">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>{{.SiteName}}</title>
+ <meta name="csrf-token" content="{{.CSRF}}">
+ <meta name="referrer" content="same-origin">
+ <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+ {{template "base/head_style" .}}
+ {{template "base/head_script" .}}
+</head>
+<body>
+ <noscript>请启用 JavaScript 以使用表单操作和任务状态更新。</noscript>
+ {{if .User}}{{template "base/head_navbar" .}}{{else}}<header><a class="brand" href="/"><img src="/assets/logo.svg" width="30" height="30" alt="SVNova"><strong>{{.SiteName}}</strong></a></header>{{end}}

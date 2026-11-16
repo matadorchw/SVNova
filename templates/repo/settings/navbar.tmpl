@@ -1,0 +1,5 @@
+{{/* Adapted from Gitea templates/repo/settings/navbar.tmpl (MIT), SVN-supported sections. */}}
+<nav class="flex-container-nav" aria-label="仓库设置导航"><div class="ui fluid vertical menu"><div class="header item">设置</div>
+<a class="item {{if eq .SettingsSection "basic"}}active{{end}}" href="{{.SettingsURL "basic"}}" {{if eq .SettingsSection "basic"}}aria-current="page"{{end}}>基本设置</a>
+<a class="item {{if eq .SettingsSection "mirror"}}active{{end}}" href="{{.SettingsURL "mirror"}}" {{if eq .SettingsSection "mirror"}}aria-current="page"{{end}}>镜像设置</a>
+<a class="item {{if eq .SettingsSection "danger"}}active{{end}}" href="{{.SettingsURL "danger"}}" {{if eq .SettingsSection "danger"}}aria-current="page"{{end}}>危险操作</a></div></nav>

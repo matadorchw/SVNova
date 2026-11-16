@@ -1,0 +1,2 @@
+{{/* Adapted from Gitea templates/org/team/navbar.tmpl (MIT). */}}
+<nav class="ui compact small menu org-team-navbar" aria-label="团队导航"><a class="item {{if eq .TeamView "members"}}active{{end}}" href="{{.TeamURL}}">{{template "shared/menu_icon" "person"}}成员 <strong>{{len .TeamMembers}}</strong></a><a class="item {{if eq .TeamView "repositories"}}active{{end}}" href="{{.TeamRepositoriesURL}}">{{template "shared/menu_icon" "repo"}}仓库 <strong>{{len .TeamRepositoryList}}</strong></a></nav>

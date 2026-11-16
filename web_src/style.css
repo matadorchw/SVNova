@@ -1,0 +1,150 @@
+/* SVNova adapters for Gitea templates and CSS modules. */
+:root {font-family:var(--fonts-proportional);font-size:14px;color:var(--color-text);background:var(--color-body);--fonts-regular:var(--fonts-proportional);--border:var(--color-secondary);--muted:var(--color-text-light-2);}
+* {box-sizing:border-box;}
+body {margin:0;}
+html {overflow-y:scroll;} /* Keep page alignment stable when switching between short and long pages. */
+a {color:var(--color-primary);text-decoration:none;}
+a:hover {text-decoration:underline;}
+header {display:flex;align-items:center;min-height:50px;padding:0 24px;border-bottom:1px solid var(--color-secondary);background:var(--color-nav-bg);}
+.brand {display:flex;align-items:center;gap:8px;color:var(--color-text);}
+.page-content {margin:32px auto 64px;}
+h1 {font-size:24px;font-weight:500;line-height:1.4;margin:0 0 24px;}
+h2 {font-size:18px;font-weight:600;}
+h3 {font-size:16px;font-weight:600;}
+p {line-height:1.6;}
+.title {display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;}
+.title h1 {margin:0;}
+.repository {padding:20px 0;border-bottom:1px solid var(--color-secondary);}
+.repository h2 {display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-weight:500;margin:0;}
+.repository p {margin:8px 0 0;}
+.muted {color:var(--color-text-light-2);}
+.danger {color:var(--color-red);}
+.empty {text-align:center;padding:48px 16px;color:var(--color-text-light-2);}
+.empty h2 {color:var(--color-text);}
+button,.button {display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;min-height:36px;padding:8px 14px;border:1px solid var(--color-secondary);border-radius:var(--border-radius);background:var(--color-button);color:var(--color-text);font:inherit;}
+button:hover,.button:hover {background:var(--color-hover);text-decoration:none;}
+button:disabled {opacity:var(--opacity-disabled);cursor:not-allowed;}
+.button.primary {background:var(--color-primary);color:var(--color-primary-contrast);border-color:var(--color-primary);}
+label {display:block;margin-bottom:16px;font-weight:500;}
+input,select {font:inherit;padding:9px 12px;border:1px solid var(--color-input-border);border-radius:var(--border-radius);background:var(--color-input-background);color:var(--color-input-text);min-width:0;}
+label input:not([type=checkbox]),label select {display:block;width:100%;margin-top:8px;}
+.inline,.toolbar,.list-toolbar {display:flex;align-items:center;flex-wrap:wrap;gap:12px;}
+.list-toolbar {margin-bottom:16px;}
+.list-toolbar input {flex:1;}
+.toolbar {margin:20px 0;}
+.toolbar label {display:flex;align-items:center;gap:8px;margin:0;}
+.toolbar label input {width:120px;margin:0;}
+.auth {width:550px;max-width:calc(100% - 32px);margin:64px auto;}
+.auth h1.ui.header {font-size:20px;}
+.auth .segment {padding:24px;}
+.form-panel {margin:24px auto;}
+.form-panel h1,.form-panel h2 {margin-top:0;}
+.ui.form {margin-bottom:16px;}
+.settings-nav {border:1px solid var(--color-secondary);border-radius:var(--border-radius);align-self:flex-start;}
+.settings-nav a {color:var(--color-text);}
+.settings-nav a:hover {background:var(--color-hover);}
+.settings-nav a,.settings-nav a:hover,.settings-nav a:focus-visible {text-decoration:none;}
+.secondary-nav {padding:20px 16px 0;border-bottom:1px solid var(--color-secondary);}
+.tabs a {color:var(--color-text);border-bottom:2px solid transparent;}
+.tabs a[aria-current=page] {border-bottom-color:var(--color-primary);font-weight:600;}
+code,pre {font-family:var(--fonts-monospace);}
+pre {border:1px solid var(--color-secondary);padding:16px;background:var(--color-code-bg);line-height:20px;}
+footer {border-top:1px solid var(--color-secondary);padding:16px 24px;color:var(--color-text-light-2);font-size:12px;background:var(--color-footer);}
+.avatar {border-radius:50%;}
+hr {border:0;border-top:1px solid var(--color-secondary);margin:24px 0;}
+@media(max-width:767.98px) {.auth {margin:32px auto;} .page-content {margin-top:24px;} .title {flex-wrap:wrap;} }
+
+/* Gitea profile sidebar and repository overview layout. */
+.user-profile-layout { display:grid; grid-template-columns:290px minmax(0,1fr); gap:36px; }
+.user-profile-card { align-self:start; background:var(--color-box-body); border:1px solid var(--color-secondary); border-radius:4px; overflow:hidden; }
+.user-profile-identity { padding:14px 16px; text-align:center; }
+.user-profile-identity img { display:block; width:100%; height:auto; aspect-ratio:1; border-radius:4px; }
+.user-profile-identity h2 { font-size:20px; margin:14px 0 0; }
+.user-profile-detail { display:flex; align-items:center; gap:6px; flex-wrap:wrap; padding:12px 10px; border-top:1px solid var(--color-secondary); }
+.user-profile-repositories .menu { margin-top:0; }
+.user-profile-search { padding:0 0 15px; }
+.user-profile-results { border-top:1px solid var(--color-secondary); }
+.user-profile-repo { padding:18px 0; border-bottom:1px solid var(--color-secondary); font-size:18px; }
+@media (max-width:767.98px) { .user-profile-layout { grid-template-columns:minmax(0,1fr); gap:20px; } .user-profile-card { width:100%; } .user-profile-identity img { max-width:256px; margin:auto; } }
+.user-profile-org { display:inline-flex; }
+.settings-org-header, .settings-org-row, .settings-org-name { display:flex; align-items:center; gap:8px; } .settings-org-header, .settings-org-row { justify-content:space-between; } .settings-org-row { padding:10px 0; border-bottom:1px solid var(--color-secondary); } .settings-org-row:last-child { border-bottom:0; } .settings-org-row form { margin:0; }
+.leave-organization-dialog { width:min(720px,calc(100vw - 32px)); padding:0; border:0; border-radius:var(--border-radius); background:var(--color-body); color:var(--color-text); box-shadow:0 8px 24px #0005; }
+.leave-organization-dialog::backdrop { background:#000b; }
+.leave-organization-heading { padding:20px; font-size:20px; border-bottom:1px solid var(--color-secondary); }
+.leave-organization-content { padding:24px 20px; }
+.leave-organization-actions { display:flex; justify-content:flex-end; gap:10px; padding:14px; background:var(--color-box-header); border-top:1px solid var(--color-secondary); }
+
+.ui.form.ldap-schedule-form .help {display:block;text-wrap:wrap;}
+
+.org-private-icon {color:var(--color-gold);}
+
+.org-sort-heading {display:flex;align-items:center;gap:4px;color:inherit;}
+
+.ui.secondary.menu .dropdown.item.org-sort-menu {background:transparent !important;}
+.ui.secondary.menu .dropdown.item.org-sort-menu:hover {background:var(--color-hover) !important;}
+
+.ui.segment.org-list-toolbar {padding:16px;}
+.ui.segment.org-list-toolbar > .ui.form {margin:0;}
+
+/* Match Gitea sortable headers while keeping native keyboard navigation. */
+.ui.table th:has(> .org-sort-heading) {padding:0;}
+.ui.table th > .org-sort-heading {padding:6px 5px;color:inherit;text-decoration:none;}
+.ui.table th:has(> .org-sort-heading):hover {background:var(--color-hover) !important;cursor:pointer;}
+
+.admin-user-actions {display:flex;align-items:center;gap:4px;}
+
+.ui.form > p.help {display:block;text-wrap:wrap;}
+
+.admin-user-properties {display:grid;grid-template-columns:7em minmax(0,1fr);gap:12px 20px;margin:0 0 20px;align-items:baseline;}
+.admin-user-properties dt {color:var(--color-text-light-2);}
+.admin-user-properties dd {margin:0;overflow-wrap:anywhere;}
+@media(max-width:479.98px) {.admin-user-properties {grid-template-columns:6em minmax(0,1fr);column-gap:12px;}}
+
+.admin-user-details {display:flex;flex-direction:column;gap:16px;}
+.admin-user-detail-columns {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;}
+.admin-user-detail-identity {display:flex;gap:8px;align-items:flex-start;}
+.admin-user-detail-identity > img {flex:none;}
+.admin-user-detail-info {display:flex;flex-direction:column;gap:4px;min-width:0;overflow-wrap:anywhere;}
+.admin-user-detail-name {font-weight:600;color:var(--color-text);}
+.admin-user-detail-email {display:flex;align-items:center;flex-wrap:wrap;gap:8px;overflow-wrap:anywhere;}
+.admin-user-detail-list {display:flex;flex-direction:column;gap:8px;overflow-wrap:anywhere;}
+@media(max-width:767.98px) {.admin-user-detail-columns {grid-template-columns:minmax(0,1fr);}}
+
+/* The polling wrapper interrupts Fomantic's adjacent attached-segment rule. */
+#notification-records > .ui.attached.table.segment:first-child {border-top:0;margin-top:0;}
+#notification-records > .ui.table.segment > .notification-table {margin:0;border:0;border-radius:0;}
+
+.org-member-main {font-weight:400;}
+.org-member-main > strong {font-weight:500;}
+.org-member-item > form {margin:0;}
+.member-search-box {position:relative;}
+.member-suggestions {position:absolute;top:100%;left:0;z-index:30;width:max(100%,260px);max-width:calc(100vw - 48px);max-height:300px;overflow:auto;border:1px solid var(--color-secondary);background:var(--color-box-body);border-radius:4px;}
+.member-suggestions[hidden],.member-suggestion[hidden] {display:none;}
+.member-suggestion {display:flex;align-items:center;gap:8px;width:100%;border:0;background:transparent;color:var(--color-text);padding:10px;text-align:left;cursor:pointer;}
+.member-suggestion:hover,.member-suggestion:focus-visible {background:var(--color-hover);}
+
+.team-repositories-page {display:flex;flex-direction:column;gap:16px;}
+.team-repositories-page > .ui.segment,.team-repositories-page > .ui.form,.team-repositories-page > .org-team-navbar {margin:0;}
+.ui.form.team-add-repository {display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:0;}
+.team-add-repository > .dropdown {min-width:220px;flex:1;max-width:420px;}
+.team-add-repository > .button {margin:0;}
+.team-repository-row {display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--color-secondary);}
+.team-repository-row:first-child {padding-top:0;}
+.team-repository-row:last-child {padding-bottom:0;border-bottom:0;}
+.team-repository-info {flex:1;min-width:0;overflow-wrap:anywhere;display:flex;flex-direction:column;gap:6px;}
+.team-repository-row > form {margin:0;}
+@media(max-width:767.98px) {.team-repository-row {flex-wrap:wrap;}.team-repository-row > form {margin-left:auto;}}
+
+.delete-organization-dialog {background:var(--color-body);}
+.delete-organization-dialog .leave-organization-heading {padding:20px 22px;font-size:18px;font-weight:500;background:var(--color-body);}
+.delete-organization-dialog > .ui.form {margin:0;}
+.delete-organization-dialog .leave-organization-content {padding:22px;}
+.delete-organization-dialog .warning.message {margin:0 0 16px;}
+.delete-organization-dialog .warning.message ul {margin:0;padding-left:24px;}
+.delete-organization-dialog .leave-organization-content > p {margin:0 0 16px;}
+.delete-organization-dialog .leave-organization-content > .field {margin-bottom:0;}
+.delete-organization-dialog .leave-organization-actions {padding:8px 22px 22px;background:var(--color-body);border-top:0;gap:14px;}
+.delete-organization-dialog .leave-organization-actions > .button {margin:0;}
+
+#repo_migrating_revision_progress {width:100%;max-width:600px;height:14px;accent-color:var(--color-primary);}
+#repo_migrating_revision_progress[hidden] {display:none;}
